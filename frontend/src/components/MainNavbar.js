@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
+
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaCartArrowDown } from 'react-icons/fa';
 
 import './MainNavbar.css';
 
@@ -32,7 +34,7 @@ export default function MainNavbar() {
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
                 <div>
-                    <a href="/cart">Carrinho</a>
+                    <a href="/cart">Carrinho<i class="icon-mainCart"><FaCartArrowDown /></i></a>
                     <a href="/signin">Logar</a>     
                 </div>     
             </nav>
