@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default function MainRating(props) {
-    const { rating, numReviews } = props;
+    const { rating, numReviews, id } = props;
 
     return (
-        <div className="card-rating" >    
+        <div className={`card-rating cardRatingId-${id}`} >    
             <span><i className={ rating >= 1 ?"fa fa-star"
                                 : rating >= 0.5 ?"fa fa-star-half-o"
                                 :"fa fa-star-o"} 

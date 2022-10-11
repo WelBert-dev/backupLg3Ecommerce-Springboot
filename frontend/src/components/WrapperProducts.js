@@ -22,7 +22,7 @@ export default function WrapperProducts() {
     <div className="wrapper-products">
         {
             products.map(product => (
-            <MainCardProduct key={product.id} product={product} showLink={true}/>
+            <MainCardProduct key={product.id} product={product} showLink={false}/>
             ))
         }  
     </div>

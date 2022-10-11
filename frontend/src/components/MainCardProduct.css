@@ -101,3 +101,12 @@
     color:#f0c040;
     text-align: center;
 }
+
+
+.rotateYTrue {
+    transform: rotateY(180deg), ;
+}
+
+.main-cardProduct.rotateYTrue {
+    transition: all ease-in 1s;
+}
