@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productActions';
 
 import MainCardProduct from './MainCardProduct';
-
-import data from '../data';
 
 // import './WrapperProducts.css';
 
 export default function WrapperProducts() {
 
-    const products = data.products;
+    const productList = useSelector( (state) => state.productList );
+    console.log(productList);
+    const { loading, error, products } = productList;
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(listProducts());
+    }, [])
 
     return (
     <div className="wrapper-products">

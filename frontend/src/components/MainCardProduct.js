@@ -18,7 +18,7 @@ export default function MainCardProduct(props) {
         <Link to={ showLink ? `/product/${product.id}`: '#'}>
             <div className="wrapperImage">
                 <img className="img--mediumSize" src={product.image} alt={product.description} />
-                <span><i><FaCartArrowDown /></i></span>
+                <span><i id={`productId-${product.id}`} ><FaCartArrowDown /></i></span>
                 <div className="burger-title--container">
                     <h1 className="burger-title">{product.name}</h1>
                     <span className="burger-price"><p>{Intl.NumberFormat("en-US", {

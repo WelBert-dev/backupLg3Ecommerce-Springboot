@@ -1,4 +1,6 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
+import { PRODUCT_LIST_FAIL, 
+         PRODUCT_LIST_REQUEST, 
+         PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
 
 import dados from '../data';
 
@@ -8,8 +10,8 @@ export const listProducts = () => (dispatch) => {
     });
     try {
         //const { data } = await axios.get('/api/products');
-        const { data } = dados;
-        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data});
+        const { products } = dados;
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: products});
     } catch (error ) {
         dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
     }

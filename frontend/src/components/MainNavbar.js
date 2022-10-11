@@ -34,7 +34,7 @@ export default function MainNavbar() {
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
                 <div>
-                    <a href="/cart">Carrinho<i class="icon-mainCart"><FaCartArrowDown /></i></a>
+                    <a href="/cart">Carrinho<i className="icon-mainCart"><FaCartArrowDown /></i></a>
                     <a href="/signin">Logar</a>     
                 </div>     
             </nav>
