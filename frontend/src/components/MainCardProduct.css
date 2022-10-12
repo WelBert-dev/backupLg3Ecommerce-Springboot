@@ -110,3 +110,7 @@
 .main-cardProduct.rotateYTrue {
     transition: all ease-in 1s;
 }
+
+.productDescription {
+    display: none;
+}

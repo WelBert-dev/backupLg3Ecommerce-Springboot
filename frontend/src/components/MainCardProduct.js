@@ -14,7 +14,7 @@ export default function MainCardProduct(props) {
     const { product, showLink = false } = props;
 
     const handleCardClick = (idOfProductSelected) => {
-        // mostra modal para user selecionar a quantidade desejada
+        
         const objDivCardProduct = document.querySelector(`.cardId-${idOfProductSelected}`);
         const objImgcardProduct = document.querySelector(`.imgId-${idOfProductSelected}`);
         const objBurgerTitleContainer = document.querySelector(`.burgerTitleContainerId-${idOfProductSelected}`);
@@ -34,14 +34,14 @@ export default function MainCardProduct(props) {
                 objDivCardProduct.style.transform = "rotateY(0)";
                 
                 flagRotateZero = true;
-                console.log("rodou");
 
                 objImgcardProduct.style.display = "initial";
                 objBurgerTitleContainer.style.display = "initial";
-                objCardRating.style.display = "initial";
+                objCardRating.style.display = "block";
                 objIcon.style.display = "initial";
 
                 objDivCardProduct.removeEventListener("mouseout", handleOnMouseLeave);
+                console.log("entrou no if do leave");
             }
             
         }
@@ -55,6 +55,13 @@ export default function MainCardProduct(props) {
             objBurgerTitleContainer.style.display = "none";
             objCardRating.style.display = "none";
             objIcon.style.display = "none";
+            console.log("entrou no if de fora");
+
+            // const filhoH1Title = document.createElement("h1");
+            //const getFilhoDoTitleContainer = objBurgerTitleContainer.children
+            // console.log(objBurgerTitleContainer.children.item)
+            // filhoH1Title.appendChild(document.createTextNode("pamonha"));
+            // objDivCardProduct.appendChild(filhoH1Title);
         }
         
 

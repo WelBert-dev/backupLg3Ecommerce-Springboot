@@ -12,6 +12,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: gray;
+  overflow-x: hidden;
+
 }
 
 header, main, footer {
@@ -20,7 +22,11 @@ header, main, footer {
 
 main {
   min-height: 70vh;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+footer {
+  min-width: 20vh;
 }
 
 /* commom area */
