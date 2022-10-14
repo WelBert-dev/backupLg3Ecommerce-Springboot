@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function MainRating(props) {
-    const { rating, numReviews, id } = props;
+    const { rating, numReviews = "", id } = props;
 
     return (
         <div className={`card-rating cardRatingId-${id}`} >    
@@ -31,7 +31,7 @@ export default function MainRating(props) {
                     >
                     </i></span>
             <span>
-                {numReviews + ' reviews'}
+                {numReviews + ( numReviews ?' reviews':"")}
             </span>
         </div>
     )

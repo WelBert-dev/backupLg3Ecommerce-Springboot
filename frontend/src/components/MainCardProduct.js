@@ -13,69 +13,68 @@ export default function MainCardProduct(props) {
 
     const { product, showLink = false } = props;
 
-    const handleCardClick = (idOfProductSelected) => {
+    function handleIconCardProductClick (idOfProductSelected) {
         
+        // aciona o modal
         const objDivCardProduct = document.querySelector(`.cardId-${idOfProductSelected}`);
-        const objImgcardProduct = document.querySelector(`.imgId-${idOfProductSelected}`);
-        const objBurgerTitleContainer = document.querySelector(`.burgerTitleContainerId-${idOfProductSelected}`);
-        const objCardRating =  document.querySelector(`.cardRatingId-${idOfProductSelected}`);
+        const objDivBlurContainer = document.querySelector(`.containerBlur-ByProductId-${idOfProductSelected}`);
+
+        objDivCardProduct.classList.toggle("isActive");
+        objDivBlurContainer.classList.toggle("isActive");
+
+
         const objIcon =  document.querySelector(`.iconId-${idOfProductSelected}`); 
 
-        var contador = Number(0);
-        var flagRotateZero = false;
-        // adiciona o evento quando o mouse sai do elemento
-        function handleOnMouseLeave(){
+        // pega o produto que foi adicionado no cart
 
-            contador ++; // contador pois o evento é ativado 1 vez mesmo sem sair do elemento
-
-            if(objDivCardProduct.classList.contains("rotateYTrue") && contador > 1)
-            { // quer dizer que rodou
-                objDivCardProduct.classList.remove("rotateYTrue");
-                objDivCardProduct.style.transform = "rotateY(0)";
-                
-                flagRotateZero = true;
-
-                objImgcardProduct.style.display = "initial";
-                objBurgerTitleContainer.style.display = "initial";
-                objCardRating.style.display = "block";
-                objIcon.style.display = "initial";
-
-                objDivCardProduct.removeEventListener("mouseout", handleOnMouseLeave);
-                console.log("entrou no if do leave");
-            }
-            
-        }
-        objDivCardProduct.addEventListener("mouseout", handleOnMouseLeave);
-
-        if(!objDivCardProduct.classList.contains("rotateYTrue") || flagRotateZero)
-        { // quer dizer que nao rodou
-            objDivCardProduct.classList.add("rotateYTrue");
-            
-            objImgcardProduct.style.display = "none";
-            objBurgerTitleContainer.style.display = "none";
-            objCardRating.style.display = "none";
-            objIcon.style.display = "none";
-            console.log("entrou no if de fora");
-
-            // const filhoH1Title = document.createElement("h1");
-            //const getFilhoDoTitleContainer = objBurgerTitleContainer.children
-            // console.log(objBurgerTitleContainer.children.item)
-            // filhoH1Title.appendChild(document.createTextNode("pamonha"));
-            // objDivCardProduct.appendChild(filhoH1Title);
-        }
-        
 
         // finalmente adiciona no cart
         // props.history.push(`/cart/${product.id}`);
     }
 
+    function handleCancelModalSingleProductClick(idOfProductSelected) {
+        const objDivCardProduct = document.querySelector(`.cardId-${idOfProductSelected}`);
+        const objDivBlurContainer = document.querySelector(`.containerBlur-ByProductId-${idOfProductSelected}`);
+
+        objDivCardProduct.classList.toggle("isActive");
+        objDivBlurContainer.classList.toggle("isActive");
+    }
+
+    function handleConfirmModalSingleProductClick(idOfProductSelected) {
+        // desativa modal
+        const objDivCardProduct = document.querySelector(`.cardId-${idOfProductSelected}`);
+        const objDivBlurContainer = document.querySelector(`.containerBlur-ByProductId-${idOfProductSelected}`);
+
+        objDivCardProduct.classList.toggle("isActive");
+        objDivBlurContainer.classList.toggle("isActive");
+
+        // seta no icon do singleCardProduct a quantidade de produto selecionado
+        const objInputQtdOfProduct = document.querySelector(`#productSingleQtdOfId-${idOfProductSelected}`)
+        var quantidadeDesejada = Number(objInputQtdOfProduct.value);
+
+
+        const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
+        const filhoQtdProdutos = document.createElement("span");
+        filhoQtdProdutos.setAttribute("id", `qtdSelecionadaByProductId-${idOfProductSelected}`)
+
+        // verifica se é outro contexto e evita re-append
+        if(objIconSingleProduct.children[0].childElementCount > 1){
+            objIconSingleProduct.children[0].children[1].textContent = quantidadeDesejada;
+        }else {
+            filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
+            objIconSingleProduct.children[0].appendChild(filhoQtdProdutos);
+        }
+       
+    }
+
     return (
-    <div onClick={() => handleCardClick(product.id)} key={product.id} className={`main-cardProduct cardId-${product.id}`}>
+    <>
+    <div key={product.id} className="main-cardProduct">
         <Link to={ showLink ? `/product/${product.id}`: '#'}>
             <div className="wrapperImage">
-                <img className={`img--mediumSize imgId-${product.id}`} src={product.image} alt={product.description} />
-                <span className={`iconId-${product.id}`}><i><FaCartArrowDown /></i></span>
-                <div className={`burger-title--container burgerTitleContainerId-${product.id}`}>
+                <img className="img--mediumSize" src={product.image} alt={product.description} />
+                <span className={`iconId-${product.id}`} onClick={() => handleIconCardProductClick(product.id)}><i><FaCartArrowDown /></i></span>
+                <div className="burger-title--container">
                     <h1 className="burger-title">{product.name}</h1>
                     <span className="burger-price"><p>{Intl.NumberFormat("en-US", {
                                                 style: "currency", 
@@ -85,5 +84,25 @@ export default function MainCardProduct(props) {
             <MainRating id={product.id} rating={product.rating} numReviews={product.numReviews} />
         </Link>
     </div>
+    <div className={`containerBlur containerBlur-ByProductId-${product.id}`} >
+
+    </div>    
+    <div className={`modalSingleProductClick cardId-${product.id}`}>
+        <div>
+            <h1 className="burger-title colorGreen">{product.name} <MainRating id={product.id} rating={product.rating} /></h1>
+            <p className="descriptionOfSingleProduct">
+                {product.description}
+            </p>
+            <div className="containerQuantidadeProduto">
+                <label>Vai querê quantu?</label>
+                <input id={`productSingleQtdOfId-${product.id}`} type="number" min="1" max="100"/>
+            </div> 
+            <div className="containerButtonsModalSingleProduct">
+                <button onClick={() => handleConfirmModalSingleProductClick(product.id)} className="btnModalSingleProduct">Confirmar</button>
+                <button onClick={() => handleCancelModalSingleProductClick(product.id)} className="btnModalSingleProduct -danger">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    </>
     )
 };

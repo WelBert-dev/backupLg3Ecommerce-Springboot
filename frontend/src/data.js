@@ -10,7 +10,7 @@ const data = {
             brand: 'Nike',
             rating: 3.5,
             numReviews: 1058,
-            description: 'Grelhadinhu gotozun'
+            description: 'Grelhadinhu gotozun “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'2',
@@ -22,7 +22,7 @@ const data = {
             brand: 'Nike',
             rating: 4.5,
             numReviews: 11,
-            description: 'Injetadinhun dlç'
+            description: 'Injetadinhun dlç “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'3',
@@ -34,7 +34,7 @@ const data = {
             brand: 'Nike',
             rating: 5,
             numReviews: 10,
-            description: 'Breaking bad patrocina'
+            description: 'Breaking bad patrocina “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'4',
@@ -46,7 +46,7 @@ const data = {
             brand: 'Nike',
             rating: 5,
             numReviews: 10255,
-            description: 'Esse vai mordido mesmo kakakakak'
+            description: 'Esse vai mordido mesmo kakakakak “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'5',
@@ -58,7 +58,7 @@ const data = {
             brand: 'Nike Made in China',
             rating: 5,
             numReviews: 10,
-            description: 'Sem criatividade pra issu'
+            description: 'Sem criatividade pra issu “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'6',
@@ -70,7 +70,7 @@ const data = {
             brand: 'Nike',
             rating: 3.5,
             numReviews: 13,
-            description: 'Utima dose'
+            description: 'Utima dose “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
         {
             id:'7',
@@ -82,7 +82,7 @@ const data = {
             brand: 'Nike',
             rating: 5,
             numReviews: 133,
-            description: 'Principe dos sayajin'
+            description: 'Principe dos sayajin “Isso não pode estar acontecendo. Toda vez que fico mais forte, um poder maior parece me desafiar. É como se o destino me zombasse com um sorriso, assim como Kakaroto.” “Você não é derrotado quando perde, mais sim quando você desiste” “Não existe justiça ou injustiça em uma batalha. Só há vitória ou, no seu caso, derrota” “Você pode ter invadido minha mente e meu corpo, mas há uma coisa que um Saiyajin sempre mantém. SEU ORGULHO!”'
         },
     ]
 }

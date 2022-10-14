@@ -2,7 +2,7 @@ header nav {
     width: calc(100% - 24px);
     padding: .5rem;
     position: fixed;
-    z-index: 2;
+    z-index: 6;
     display: flex;
     justify-content: space-between;
     align-items: center;
