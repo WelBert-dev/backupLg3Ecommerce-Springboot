@@ -71,6 +71,19 @@ header nav a:hover {
     padding-left: .5rem;
 }
 
+.icon-mainCart > span {
+    border-radius: 50%;
+    padding: 0.1rem 0.3rem;
+    background-color: red;
+    font-weight: 800;
+    color: black;
+    position: relative;
+    left: 7px;
+    font-size: .8rem;
+    bottom: 13px;
+    text-shadow: none;
+}
+
 @media (max-width: 800px)
 {
     #navbar-container > div {

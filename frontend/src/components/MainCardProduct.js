@@ -67,7 +67,6 @@ export default function MainCardProduct(props) {
                 objIconSingleProduct.children[0].appendChild(filhoQtdProdutos);
             }    
             
-            
             // Armazena no localstorage
 
             const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
@@ -102,6 +101,19 @@ export default function MainCardProduct(props) {
             createSingleItemProductInCart(SingleItemProductForCart);
 
             console.log(getLocalStorage());
+
+            // icon-mainCart
+            // Manipulação do dom para setar a quantidade selecinada no icon main card (navbar)
+            const objIconMainCart = document.querySelector(".icon-mainCart");
+
+            // verifica se é outro contexto e evita re-append
+            if(objIconMainCart.childElementCount > 1){
+                objIconMainCart.children[1].textContent = JSON.parse(localStorage.getItem('db_cart')).length;
+            }else {
+                const filhoQtdProdutosMain = document.createElement("span");
+                filhoQtdProdutosMain.appendChild(document.createTextNode(JSON.parse(localStorage.getItem('db_cart')).length));
+                objIconMainCart.appendChild(filhoQtdProdutosMain);
+            }    
         }     
     }
 
@@ -111,7 +123,14 @@ export default function MainCardProduct(props) {
         <Link to={ showLink ? `/product/${product.id}`: '#'}>
             <div className="wrapperImage">
                 <img className="img--mediumSize" src={product.image} alt={product.description} />
-                <span className={`iconId-${product.id}`} onClick={() => handleIconCardProductClick(product.id)}><i><FaCartArrowDown /></i></span>
+            <span className={`iconId-${product.id}`} onClick={() => handleIconCardProductClick(product.id)}><i><FaCartArrowDown />
+            {
+                JSON.parse(localStorage.getItem('db_cart')) ? 
+                (JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)) ? 
+                (<span id={`qtdSelecionadaByProductId-${product.id}`}>{           
+                    JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
+                }</span>):""):""
+            }</i></span>
                 <div className="burger-title--container">
                     <h1 className="burger-title">{product.name}</h1>
                     <span className="burger-price"><p>{Intl.NumberFormat("en-US", {

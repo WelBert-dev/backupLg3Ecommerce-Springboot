@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { FaCartArrowDown } from 'react-icons/fa';
@@ -8,6 +8,10 @@ import './MainNavbar.css';
 export default function MainNavbar() {
 
     const navRef = useRef();
+
+    useEffect(()=>{
+        console.log("Alterou");
+    },[localStorage])
 
     const showNavbar = () => {
         
@@ -28,13 +32,25 @@ export default function MainNavbar() {
         }  
     };
 
+    var sum = Number(0);
     return (
         <>
             <nav id="navbar-container" ref={navRef} >
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
                 <div>
-                    <a href="/cart">Carrinho<i className="icon-mainCart"><FaCartArrowDown /></i></a>
+                    <a href="/cart">Carrinho<i className="icon-mainCart"><FaCartArrowDown />
+                    {
+                        JSON.parse(localStorage.getItem('db_cart')) ? 
+                        (JSON.parse(localStorage.getItem('db_cart')).length > 0 ? 
+                        <span>{//JSON.parse(localStorage.getItem('db_cart')).length
+                            //sum += JSON.parse(localStorage.getItem('db_cart')).map(x => x.qtdSelected)
+                            JSON.parse(localStorage.getItem('db_cart')).length
+                        }</span> :
+                        ""
+                        ): ""
+                    }
+                    </i></a>
                     <a href="/signin">Logar</a>     
                 </div>     
             </nav>
