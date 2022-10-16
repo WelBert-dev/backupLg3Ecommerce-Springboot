@@ -52,19 +52,20 @@ export default function MainCardProduct(props) {
         const objInputQtdOfProduct = document.querySelector(`#productSingleQtdOfId-${idOfProductSelected}`)
         var quantidadeDesejada = Number(objInputQtdOfProduct.value);
 
-
-        const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
-        const filhoQtdProdutos = document.createElement("span");
-        filhoQtdProdutos.setAttribute("id", `qtdSelecionadaByProductId-${idOfProductSelected}`)
-
-        // verifica se é outro contexto e evita re-append
-        if(objIconSingleProduct.children[0].childElementCount > 1){
-            objIconSingleProduct.children[0].children[1].textContent = quantidadeDesejada;
-        }else {
-            filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
-            objIconSingleProduct.children[0].appendChild(filhoQtdProdutos);
-        }
-       
+        if (quantidadeDesejada && quantidadeDesejada != 0)
+        {
+            const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
+            const filhoQtdProdutos = document.createElement("span");
+            filhoQtdProdutos.setAttribute("id", `qtdSelecionadaByProductId-${idOfProductSelected}`)
+    
+            // verifica se é outro contexto e evita re-append
+            if(objIconSingleProduct.children[0].childElementCount > 1){
+                objIconSingleProduct.children[0].children[1].textContent = quantidadeDesejada;
+            }else {
+                filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
+                objIconSingleProduct.children[0].appendChild(filhoQtdProdutos);
+            }            
+        }     
     }
 
     return (

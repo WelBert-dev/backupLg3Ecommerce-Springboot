@@ -170,6 +170,7 @@
 
 .containerQuantidadeProduto > label{
     color: #289b10;
+    margin-right: .5rem;
 }
 
 .containerButtonsModalSingleProduct{
@@ -231,4 +232,18 @@
 
 .modalSingleProductClick.isActive {
     display: flex;
+}
+
+/* Icon quantidade de produto selecionado */
+
+.wrapperImage > span > i > span {
+    border-radius: 50%;
+    padding: 0.1rem 0.3rem;
+    background-color: red;
+    font-weight: 800;
+    color: black;
+    position: absolute;
+    left: 9px;
+    bottom: 27px;
+    z-index: -1;
 }
