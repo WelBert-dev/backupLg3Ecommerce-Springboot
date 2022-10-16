@@ -10,7 +10,6 @@ import MainCardProduct from './MainCardProduct';
 export default function WrapperProducts() {
 
     const productList = useSelector( (state) => state.productList );
-    console.log(productList);
     const { loading, error, products } = productList;
     const dispatch = useDispatch();
 

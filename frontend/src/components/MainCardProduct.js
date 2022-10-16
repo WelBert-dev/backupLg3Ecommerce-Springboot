@@ -54,6 +54,7 @@ export default function MainCardProduct(props) {
 
         if (quantidadeDesejada && quantidadeDesejada != 0)
         {
+            // Manipulação do dom para setar a quantidade selecinada no icon card single
             const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
             const filhoQtdProdutos = document.createElement("span");
             filhoQtdProdutos.setAttribute("id", `qtdSelecionadaByProductId-${idOfProductSelected}`)
@@ -64,7 +65,43 @@ export default function MainCardProduct(props) {
             }else {
                 filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
                 objIconSingleProduct.children[0].appendChild(filhoQtdProdutos);
-            }            
+            }    
+            
+            
+            // Armazena no localstorage
+
+            const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
+            const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
+
+            const SingleItemProductForCart = {
+                idOfProduct: idOfProductSelected,
+                qtdSelected: quantidadeDesejada,
+            }
+
+            const updateSingleItemProductInCart = (index, objSingleProduct) => {
+                const dbCart = getLocalStorage();
+                dbCart[index] = objSingleProduct;
+                setLocalStorage(dbCart);
+            }
+
+            const createSingleItemProductInCart = (objSingleItemProduct) => {
+                const dbCart = getLocalStorage();
+
+                // verifica se ja existe o produto na lista, para epenas mudar a quantidade
+
+                if(dbCart.find(x => x.idOfProduct === String(idOfProductSelected))){
+                    let indexOfProduct = dbCart.findIndex(x => x.idOfProduct === String(idOfProductSelected));
+                    updateSingleItemProductInCart(indexOfProduct, objSingleItemProduct);
+                }else {
+                    dbCart.push(objSingleItemProduct);
+                    setLocalStorage(dbCart);
+                }
+
+            }
+
+            createSingleItemProductInCart(SingleItemProductForCart);
+
+            console.log(getLocalStorage());
         }     
     }
 
