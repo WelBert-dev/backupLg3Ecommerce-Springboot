@@ -131,6 +131,7 @@ export default function MainCardProduct(props) {
                     JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
                 }</span>):""):""
             }</i></span>
+                <MainRating id={product.id} rating={product.rating} numReviews={product.numReviews} />
                 <div className="burger-title--container">
                     <h1 className="burger-title">{product.name}</h1>
                     <span className="burger-price"><p>{Intl.NumberFormat("en-US", {
@@ -138,7 +139,7 @@ export default function MainCardProduct(props) {
                                                 currency: "USD"}).format(Number(product.price))}</p></span>
                 </div>
             </div>              
-            <MainRating id={product.id} rating={product.rating} numReviews={product.numReviews} />
+            
         </Link>
     </div>
     <div className={`containerBlur containerBlur-ByProductId-${product.id}`} >

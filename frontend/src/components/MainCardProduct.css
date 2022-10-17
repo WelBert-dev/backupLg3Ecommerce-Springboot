@@ -13,37 +13,41 @@
     width: 300px;
     height: 300px;
     max-height: 300px;
-    border: 4px double black;
+    border: 4px double #ee0000;
     transition: all ease-in .3s;
-    background-color: #000;
+    background-color: white;
     margin-bottom: .3rem;
+    font-weight: bold;
 }
 
 .main-cardProduct:hover {
     transform: scale(1.03);
     box-shadow: .6rem .1rem .2rem rgb(27, 27, 27);
-    border: 2px solid #f0c040;
+    border: 4px double #ee0000;
 }
 
-.main-cardProduct:hover .burger-price{
+/* .main-cardProduct:hover .burger-price{
     color: white;
-}
+} */
 
 
 .img--mediumSize {
     width: 100%;
     height: 100%;
-    min-height: 250px;
-    max-height: 250px;
+    min-height: 200px;
+    max-height: 200px;
 }
 
 .card-rating span {
-  color: #f0c040;
+  color: #ee0000;
   margin: 0.1rem;
 }
 
 .card-rating span:last-child {
-    color: white;
+    color: #ee0000;
+    text-decoration: underline;
+    text-decoration-color: #ee0000;
+
 }
 
 .card-rating {
@@ -57,10 +61,6 @@
     align-items: center;
     flex-direction: column;
     justify-content: start;
-}
-
-.burger-title--container {
-    position: absolute;
 }
 
 .wrapperImage  > span {
@@ -77,47 +77,42 @@
 
 .wrapperImage > span > i {
     position: absolute;
-    top: -248px;
-    left: 114px;
+    top: -204px;
+    left: 116px;
 }
 
 .wrapperImage > span > i > svg:hover {
-    color: #f0c040;
+    color: #ee0000;
     transform: scale(1.03);
 }
 
 .burger-title {
-    font-family: "Press Start 2P",cursive;
-    font-size: 1.1rem;
+    font-family: cursive;
+    font-size: 1rem;
     font-weight: bold;
-    text-shadow: 3px 3px 2px #000,-2px -2px 2px #000;
-    color:#f0c040;
-    margin: 1rem;
+    color: black;
     text-align: center;
-    background: linear-gradient(to right,rgb(255, 208, 0) 15%,#ff0000 85%);
     border-radius: 5px;
     padding: .2rem;
+    text-decoration: none !important;
 
 }
 
 .burger-price {
-    font-family: Press Start 2P, cursive;
-    font-size: 1.3rem;
+    font-family: cursive;
+    font-size: 1rem;
     font-weight: bold;
-    text-shadow: 3px 3px 2px #000,-2px -2px 2px #000;
-    color: #00e100;
+    color: black;
     text-align: center;
 
     /* background: linear-gradient(to right,rgb(255, 208, 0) 15%,#ff0000 85%); */
 }
 
 .burger-price  p {
-    background: linear-gradient(to left,rgb(255, 208, 0) 15%,#ff0000 85%);
     width: max-content;
     margin: 0 auto;
     border-radius: 5px;
     padding: .2rem;
-    margin-top: 29%;
 }
 
 /* Modal do produto clicado pelo Icon */
@@ -129,7 +124,7 @@
     height: max-content;
     min-height: 70%;
     border: 2px solid #f0c040;
-    background-image: url("/public/images/anabolizadu.png");
+    background-color: white;
     background-size: 100%;
     border-radius: 5px;
     display: none;

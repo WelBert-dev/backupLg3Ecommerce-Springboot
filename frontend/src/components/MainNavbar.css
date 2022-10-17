@@ -9,36 +9,35 @@ header nav {
     opacity: 1;
     gap: .8rem;
     /* background: linear-gradient(to right, white 15%, #6a6767 85%); */
-    background-color: #226015;
-    border: 4px double black;
+    background-color: white;
 }
 
 header nav a {
     font-size: 1rem;
     font-weight: bold;
     font-family: cursive;
-    border: 4px double #0d9f0d;
+    border: 4px double #ee0000;
     border-radius: 10%;
     padding: .5rem;
-    box-shadow: .1rem .1rem .2rem black;
-    background: linear-gradient(to right, #252525e0 15%, #1b1b1bed 70%);
-    text-shadow: 0.15rem .09rem 0.009rem black;
     transition: all ease .3s;
-    color: white;
+    color: #ee0000;
     text-decoration: none;
 }
 
+header nav a:hover > i > span {
+    background-color: white;
+    color: red;
+}
+
 header nav a:visited {
-    color: #ffffff;
+    color: #ee0000;
 }
 
 header nav a:hover {
-    box-shadow: .6rem .1rem .2rem black;
     text-shadow: none;
     transform: scale(1.05);
-    background: #0d9f0d;
-    border-color: black;
-    color: black;
+    background: #ee0000;
+    color: white;
 }
 
 /* Mobile area */
@@ -66,7 +65,7 @@ header nav a:hover {
 }
 
 .icon-mainCart > svg{
-    color: #f0c040;
+    color: #000000;
     font-size: 1.1rem;
     padding-left: .5rem;
 }
@@ -145,7 +144,7 @@ header nav a:hover {
         gap: .5rem;
         transition: all ease 1s;
         transform: translateX(-150vw);
-        background-color: #464f43;
+        background-color: gray;
         border: 4px double black;
         width: 50vw;
         z-index: 3;
