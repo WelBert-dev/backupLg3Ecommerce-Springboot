@@ -8,6 +8,9 @@ import './MainNavbar.css';
 export default function MainNavbar() {
 
     const navRef = useRef();
+    
+    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
+    const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
 
     useEffect(()=>{
         console.log("Alterou");
@@ -32,7 +35,19 @@ export default function MainNavbar() {
         }  
     };
 
-    var sum = Number(0);
+    function sumQtdTotalSelected()
+    {
+        // SingleItemProductForCart
+        let sum = Number(0);
+        for(let i = 0; i < getLocalStorage().length; i++)
+        {
+            console.log("sinlge", getLocalStorage()[i].qtdSelected);
+            sum += Number(getLocalStorage()[i].qtdSelected);
+        }
+
+        return sum;
+    }
+
     return (
         <>
             <nav id="navbar-container" ref={navRef} >
@@ -45,7 +60,8 @@ export default function MainNavbar() {
                         (JSON.parse(localStorage.getItem('db_cart')).length > 0 ? 
                         <span>{//JSON.parse(localStorage.getItem('db_cart')).length
                             //sum += JSON.parse(localStorage.getItem('db_cart')).map(x => x.qtdSelected)
-                            JSON.parse(localStorage.getItem('db_cart')).length
+                            // JSON.parse(localStorage.getItem('db_cart')).length
+                            sumQtdTotalSelected()
                         }</span> :
                         ""
                         ): ""

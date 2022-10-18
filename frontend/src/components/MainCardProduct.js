@@ -12,8 +12,6 @@ import './MainCardProduct.css';
 export default function MainCardProduct(props) {
 
     const { product, showLink = false } = props;
-    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
-    const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
 
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
     const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
@@ -42,6 +40,19 @@ export default function MainCardProduct(props) {
         const dbCart = getLocalStorage();
         dbCart.splice(index, 1);
         setLocalStorage(dbCart);
+    }
+
+    function sumQtdTotalSelected()
+    {
+        // SingleItemProductForCart
+        let sum = Number(0);
+        for(let i = 0; i < getLocalStorage().length; i++)
+        {
+            console.log("sinlge", getLocalStorage()[i].qtdSelected);
+            sum += Number(getLocalStorage()[i].qtdSelected);
+        }
+
+        return sum;
     }
 
     function handleIconCardProductClick (idOfProductSelected) {
@@ -101,25 +112,26 @@ export default function MainCardProduct(props) {
             // icon do botão na navbar
             
 
-            if(objIconMainCart.children[1].childElementCount > 1){
-                objIconMainCart.children[1].textContent -= 1;
-                if (objIconMainCart.children[1].textContent == 0)
+            if(objIconMainCart.childElementCount > 1){
+                objIconMainCart.children[1].textContent = sumQtdTotalSelected();
+                if (Number(objIconMainCart.children[1].textContent) <= 0)
                 {
-                    objIconSingleProduct.children[1].outerHTML="";
+                    objIconMainCart.children[1].outerHTML="";
                 }
 
             }else {
                 const filhoQtdProdutos = document.createElement("span");
-                filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
+                filhoQtdProdutos.appendChild(document.createTextNode(sumQtdTotalSelected()));
                 objIconMainCart.children[1].appendChild(filhoQtdProdutos);
+                console.log(objIconMainCart.children[1]);
             } 
 
-            if (Number(objIconMainCart.children[1].textContent) == 0)
-            {
-                // verifica se é outro contexto e evita re-append
+            // if (Number(objIconMainCart.children[1].textContent) == 0)
+            // {
+            //     // verifica se é outro contexto e evita re-append
                 
-                objIconMainCart.children[1].outerHTML = getLocalStorage().find(x => x.idOfProduct === String(product.id)).qtdSelecte
-            }
+            //     objIconMainCart.children[1].outerHTML = getLocalStorage().find(x => x.idOfProduct === String(product.id)).qtdSelecte
+            // }
 
         }
         if (quantidadeDesejada)
@@ -145,27 +157,19 @@ export default function MainCardProduct(props) {
 
             createSingleItemProductInCart(SingleItemProductForCart);
 
-            console.log(getLocalStorage());
-
             // icon-mainCart
             // Manipulação do dom para setar a quantidade selecinada no icon main card (navbar)
 
             // verifica se é outro contexto e evita re-append
             if(objIconMainCart.childElementCount > 1){
                 // mais que um apenas seta o textnode
-                objIconMainCart.children[1].textContent = JSON.parse(localStorage.getItem('db_cart')).length;
+                objIconMainCart.children[1].textContent = sumQtdTotalSelected();
             }else {
                 const filhoQtdProdutosMain = document.createElement("span");
-                filhoQtdProdutosMain.appendChild(document.createTextNode(JSON.parse(localStorage.getItem('db_cart')).length));
+                filhoQtdProdutosMain.appendChild(document.createTextNode(sumQtdTotalSelected()));
                 objIconMainCart.appendChild(filhoQtdProdutosMain);
             }    
         }     
-    }
-
-    function sumQtdTotalSelected(SingleItemProductForCart)
-    {
-        var getLocalStorageCart = getLocalStorage();
-
     }
 
     return (
@@ -176,11 +180,15 @@ export default function MainCardProduct(props) {
                 <img className="img--mediumSize" src={product.image} alt={product.description} />
             <span className={`iconId-${product.id}`} onClick={() => handleIconCardProductClick(product.id)}><i><FaCartArrowDown />
             {
-                JSON.parse(localStorage.getItem('db_cart')) || JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected <= 0 ? 
-                (JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)) ? 
-                (<span id={`qtdSelecionadaByProductId-${product.id}`}>{         
-                    JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
-                }</span>):""):""
+                JSON.parse(localStorage.getItem('db_cart')) ? 
+                (
+                    JSON.parse(localStorage.getItem('db_cart')) || JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected <= 0 ? 
+                    (JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)) ? 
+                    (<span id={`qtdSelecionadaByProductId-${product.id}`}>{         
+                      JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
+                    }</span>):""):""                    
+                ) : ""
+                
             }</i></span>
                 <MainRating id={product.id} rating={product.rating} numReviews={product.numReviews} />
                 <div className="burger-title--container">
