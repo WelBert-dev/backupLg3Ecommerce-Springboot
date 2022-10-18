@@ -77,8 +77,8 @@
 
 .wrapperImage > span > i {
     position: absolute;
-    top: -204px;
-    left: 116px;
+    top: -200px;
+    left: 115px;
 }
 
 .wrapperImage > span > i > svg:hover {
@@ -120,22 +120,33 @@
 .modalSingleProductClick {
     position: absolute;
     z-index: 5;
-    width: 50%;
+    width: 80%;
     height: max-content;
     min-height: 70%;
-    border: 2px solid #f0c040;
-    background-color: white;
+    border: 4px double #ee0000;
+    background-color: #000;
     background-size: 100%;
     border-radius: 5px;
     display: none;
     align-items: center;
     margin: 0 auto;
     cursor: initial;
+    min-width: 50%;
+    min-height: 50%;
+}
+
+.modalSingleProductClick > img{
+    flex-grow: 1;
+    max-width: 50vw;
+    max-height: 50vh;
 }
 
 .modalSingleProductClick > div{
     background-color: #000;
     width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .descriptionOfSingleProduct {
@@ -143,7 +154,7 @@
     font-family: cursive;
     background-color: rgb(27, 27, 27);
     line-height: 1.3rem;
-    text-align: justify;
+    text-align: center;
     color: white;
     margin: 0 auto;
     padding: 1rem;
@@ -177,11 +188,11 @@
     font-size: 1rem;
     font-weight: bold;
     font-family: cursive;
-    border: 4px double #0d9f0d;
+    border: 4px double #ee0000;
     border-radius: 10%;
     padding: 0.5rem;
     box-shadow: 0.1rem 0.1rem 0.2rem black;
-    background: linear-gradient(to right, #252525e0 15%, #1b1b1bed 70%);
+    background-color: #000;
     text-shadow: 0.15rem 0.09rem 0.009rem black;
     transition: all ease .3s;
     color: white;
@@ -194,16 +205,20 @@
     background: linear-gradient(to right, #9e1717e0 15%, #cf1212ed 70%);
     color: black;
     text-shadow: none;
+    border: 4px double black;
 }
 
 .btnModalSingleProduct:hover {
-    box-shadow: .6rem .1rem .2rem black;
     text-shadow: none;
     transform: scale(1.05);
-    background: #0d9f0d;
+    background: #ee0000;
     border-color: black;
     color: black;
     
+}
+
+.btnModalSingleProduct.-danger:hover {
+    color: #FFF;
 }
 
 /* container blur */

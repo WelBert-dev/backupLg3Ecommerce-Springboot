@@ -13,6 +13,35 @@ export default function MainCardProduct(props) {
 
     const { product, showLink = false } = props;
 
+    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
+    const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
+
+    const createSingleItemProductInCart = (objSingleItemProduct) => {
+        const dbCart = getLocalStorage();
+
+        // verifica se ja existe o produto na lista, para epenas mudar a quantidade
+
+        if(dbCart.find(x => x.idOfProduct === String(objSingleItemProduct.idOfProduct))){
+            let indexOfProduct = dbCart.findIndex(x => x.idOfProduct === String(objSingleItemProduct.idOfProduct));
+            updateSingleItemProductInCart(indexOfProduct, objSingleItemProduct);
+        }else {
+            dbCart.push(objSingleItemProduct);
+            setLocalStorage(dbCart);
+        }
+    }
+
+    const updateSingleItemProductInCart = (index, objSingleProduct) => {
+        const dbCart = getLocalStorage();
+        dbCart[index] = objSingleProduct;
+        setLocalStorage(dbCart);
+    }
+
+    const deleteSingleItemProductInCart = (index) => {
+        const dbCart = getLocalStorage();
+        dbCart.splice(index, 1);
+        setLocalStorage(dbCart);
+    }
+
     function handleIconCardProductClick (idOfProductSelected) {
         
         // aciona o modal
@@ -44,6 +73,8 @@ export default function MainCardProduct(props) {
         // desativa modal
         const objDivCardProduct = document.querySelector(`.cardId-${idOfProductSelected}`);
         const objDivBlurContainer = document.querySelector(`.containerBlur-ByProductId-${idOfProductSelected}`);
+        const objIconMainCart = document.querySelector(".icon-mainCart");
+        const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
 
         objDivCardProduct.classList.toggle("isActive");
         objDivBlurContainer.classList.toggle("isActive");
@@ -52,10 +83,46 @@ export default function MainCardProduct(props) {
         const objInputQtdOfProduct = document.querySelector(`#productSingleQtdOfId-${idOfProductSelected}`)
         var quantidadeDesejada = Number(objInputQtdOfProduct.value);
 
-        if (quantidadeDesejada && quantidadeDesejada != 0)
+        console.log(getLocalStorage(), "Id do produto: ", idOfProductSelected);
+        if (Number(quantidadeDesejada) === 0 && getLocalStorage().find(x => x.idOfProduct === String(idOfProductSelected)))
+        {
+            let indexOfProduct = getLocalStorage().findIndex(x => x.idOfProduct === String(idOfProductSelected));
+
+            console.log("Antes de deletar", getLocalStorage());
+            deleteSingleItemProductInCart(indexOfProduct);
+            console.log("depois", getLocalStorage());
+            if(objIconSingleProduct.children[0].childElementCount > 1)
+            {
+                // icon do single card
+                objIconSingleProduct.children[0].children[1].outerHTML="";
+            }
+            // icon do botão na navbar
+            
+
+            if(objIconMainCart.children[1].childElementCount > 1){
+                objIconMainCart.children[1].textContent -= 1;
+                if (objIconMainCart.children[1].textContent == 0)
+                {
+                    objIconSingleProduct.children[1].outerHTML="";
+                }
+
+            }else {
+                const filhoQtdProdutos = document.createElement("span");
+                filhoQtdProdutos.appendChild(document.createTextNode(quantidadeDesejada));
+                objIconMainCart.children[1].appendChild(filhoQtdProdutos);
+            } 
+
+            if (Number(objIconMainCart.children[1].textContent) == 0)
+            {
+                // verifica se é outro contexto e evita re-append
+                
+                objIconMainCart.children[1].outerHTML = getLocalStorage().find(x => x.idOfProduct === String(product.id)).qtdSelecte
+            }
+
+        }
+        if (quantidadeDesejada)
         {
             // Manipulação do dom para setar a quantidade selecinada no icon card single
-            const objIconSingleProduct = document.querySelector(`.iconId-${idOfProductSelected}`);
             const filhoQtdProdutos = document.createElement("span");
             filhoQtdProdutos.setAttribute("id", `qtdSelecionadaByProductId-${idOfProductSelected}`)
     
@@ -69,33 +136,9 @@ export default function MainCardProduct(props) {
             
             // Armazena no localstorage
 
-            const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
-            const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
-
             const SingleItemProductForCart = {
                 idOfProduct: idOfProductSelected,
                 qtdSelected: quantidadeDesejada,
-            }
-
-            const updateSingleItemProductInCart = (index, objSingleProduct) => {
-                const dbCart = getLocalStorage();
-                dbCart[index] = objSingleProduct;
-                setLocalStorage(dbCart);
-            }
-
-            const createSingleItemProductInCart = (objSingleItemProduct) => {
-                const dbCart = getLocalStorage();
-
-                // verifica se ja existe o produto na lista, para epenas mudar a quantidade
-
-                if(dbCart.find(x => x.idOfProduct === String(idOfProductSelected))){
-                    let indexOfProduct = dbCart.findIndex(x => x.idOfProduct === String(idOfProductSelected));
-                    updateSingleItemProductInCart(indexOfProduct, objSingleItemProduct);
-                }else {
-                    dbCart.push(objSingleItemProduct);
-                    setLocalStorage(dbCart);
-                }
-
             }
 
             createSingleItemProductInCart(SingleItemProductForCart);
@@ -104,10 +147,10 @@ export default function MainCardProduct(props) {
 
             // icon-mainCart
             // Manipulação do dom para setar a quantidade selecinada no icon main card (navbar)
-            const objIconMainCart = document.querySelector(".icon-mainCart");
 
             // verifica se é outro contexto e evita re-append
             if(objIconMainCart.childElementCount > 1){
+                // mais que um apenas seta o textnode
                 objIconMainCart.children[1].textContent = JSON.parse(localStorage.getItem('db_cart')).length;
             }else {
                 const filhoQtdProdutosMain = document.createElement("span");
@@ -125,7 +168,7 @@ export default function MainCardProduct(props) {
                 <img className="img--mediumSize" src={product.image} alt={product.description} />
             <span className={`iconId-${product.id}`} onClick={() => handleIconCardProductClick(product.id)}><i><FaCartArrowDown />
             {
-                JSON.parse(localStorage.getItem('db_cart')) ? 
+                JSON.parse(localStorage.getItem('db_cart')) || JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected <= 0 ? 
                 (JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)) ? 
                 (<span id={`qtdSelecionadaByProductId-${product.id}`}>{           
                     JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
@@ -146,6 +189,7 @@ export default function MainCardProduct(props) {
 
     </div>    
     <div className={`modalSingleProductClick cardId-${product.id}`}>
+        <img src={`${product.image}`} />
         <div>
             <h1 className="burger-title colorGreen">{product.name} <MainRating id={product.id} rating={product.rating} /></h1>
             <p className="descriptionOfSingleProduct">
@@ -153,7 +197,7 @@ export default function MainCardProduct(props) {
             </p>
             <div className="containerQuantidadeProduto">
                 <label>Vai querê quantu?</label>
-                <input id={`productSingleQtdOfId-${product.id}`} type="number" min="1" max="100"/>
+                <input id={`productSingleQtdOfId-${product.id}`} type="number" min="0" max="100"/>
             </div> 
             <div className="containerButtonsModalSingleProduct">
                 <button onClick={() => handleConfirmModalSingleProductClick(product.id)} className="btnModalSingleProduct">Confirmar</button>

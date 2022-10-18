@@ -10,6 +10,7 @@ header nav {
     gap: .8rem;
     /* background: linear-gradient(to right, white 15%, #6a6767 85%); */
     background-color: white;
+    border: 4px double #000;
 }
 
 header nav a {
@@ -77,9 +78,9 @@ header nav a:hover {
     font-weight: 800;
     color: black;
     position: relative;
-    left: 7px;
+    left: 6px;
     font-size: .8rem;
-    bottom: 13px;
+    bottom: 8px;
     text-shadow: none;
 }
 
@@ -102,7 +103,7 @@ header nav a:hover {
     }
 
     #btn-hamburguer {
-        background-color: #226015;
+        background-color: #FFF;
         border: 4px double black;
         border-radius: 10px;
         padding: .4rem .4rem 0 .4rem;
@@ -144,7 +145,7 @@ header nav a:hover {
         gap: .5rem;
         transition: all ease 1s;
         transform: translateX(-150vw);
-        background-color: gray;
+        background-color: #000;
         border: 4px double black;
         width: 50vw;
         z-index: 3;

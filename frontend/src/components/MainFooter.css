@@ -1,16 +1,15 @@
 footer {
     border: 4px double black;
     width: 100%;
-    background: #226015;
+    background: white;
     border-radius: 5px;
     font-size: .9rem;
-    color: white;
+    color: #000;
     font-family: Serif, Times New Roman;
     font-weight: bold;
     text-align: center;
     line-height: 1rem;
-    text-shadow: 1px 1px black;
-    min-height: 30vh;
+    min-height: 22vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,8 +33,7 @@ footer span {
 
 footer h3 {
     font-size: .8rem;
-    color: #08ff00;
-    text-shadow: 1px 1px black;
+    color: #ee0000;
 }
 
 .footer-icons {
@@ -100,8 +98,7 @@ footer h3 {
     
     footer h3 {
         font-size: .7rem;
-        color: #08ff00;
-        text-shadow: 1px 1px black;
+        color: #ee0000;
     }
 }
 
