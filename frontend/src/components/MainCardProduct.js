@@ -12,6 +12,8 @@ import './MainCardProduct.css';
 export default function MainCardProduct(props) {
 
     const { product, showLink = false } = props;
+    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
+    const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
 
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
     const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
@@ -160,6 +162,12 @@ export default function MainCardProduct(props) {
         }     
     }
 
+    function sumQtdTotalSelected(SingleItemProductForCart)
+    {
+        var getLocalStorageCart = getLocalStorage();
+
+    }
+
     return (
     <>
     <div key={product.id} className="main-cardProduct">
@@ -170,7 +178,7 @@ export default function MainCardProduct(props) {
             {
                 JSON.parse(localStorage.getItem('db_cart')) || JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected <= 0 ? 
                 (JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)) ? 
-                (<span id={`qtdSelecionadaByProductId-${product.id}`}>{           
+                (<span id={`qtdSelecionadaByProductId-${product.id}`}>{         
                     JSON.parse(localStorage.getItem('db_cart')).find(x => x.idOfProduct === String(product.id)).qtdSelected
                 }</span>):""):""
             }</i></span>
