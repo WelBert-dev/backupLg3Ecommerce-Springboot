@@ -5,18 +5,18 @@ import './SigninScreen.css';
 export default function SigninScreen() {
 
     return (
-        <div className="main-signin--container">   
+        <div className="main-signin--container" style={{background: `#FFFFFF url('/images/anabolizadu.png') no-repeat center center fixed`}}>   
 	      <div id="login">
 		<form method="post" action=""> 
 		  <h1>Login</h1> 
 		  <p> 
-		    <label for="nome_login">Seu nome</label>
-		    <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex. contato@htmlecsspro.com"/>
+		    <label for="nome_login">E-Mail</label>
+		    <input id="nome_login" name="email_login" required="required" type="text" placeholder="ex. contato@htmlecsspro.com"/>
 		  </p>
 		   
 		  <p> 
-		    <label for="email_login">Seu e-mail</label>
-		    <input id="email_login" name="email_login" required="required" type="password" placeholder="ex. senha" /> 
+		    <label for="email_login">Senha</label>
+		    <input id="email_login" name="senha_login" required="required" type="password" placeholder="ex. senha" /> 
 		  </p>
 		   
 		  <p> 

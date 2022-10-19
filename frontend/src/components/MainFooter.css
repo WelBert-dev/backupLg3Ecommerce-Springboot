@@ -1,7 +1,6 @@
 footer {
     border: 4px double black;
-    width: 100%;
-    background: white;
+    width: calc(100% - 24px);
     border-radius: 5px;
     font-size: .9rem;
     color: #000;
@@ -14,6 +13,9 @@ footer {
     align-items: center;
     justify-content: center;
     padding: .5rem;
+    background-color: #FFF;
+    z-index: 10;
+    position: fixed;
 }
 
 footer > div {

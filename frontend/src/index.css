@@ -27,6 +27,7 @@ header, main, footer {
 main {
   min-height: 70vh;
   overflow-y: scroll;
+  max-height: 75vh;
 }
 
 footer {
@@ -34,5 +35,18 @@ footer {
 }
 
 /* commom area */
+
+.isActiveWhiteTransparent{
+  background-color: rgba(255, 255, 255, 0.603);
+}
+
+.isActiveWhiteTransparentFooter {
+  position: fixed;
+  top: 75vh;
+}
+
+.isActiveWhiteTransparentMain {
+
+}
 
 

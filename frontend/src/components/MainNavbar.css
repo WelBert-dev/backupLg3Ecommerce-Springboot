@@ -2,15 +2,15 @@ header nav {
     width: calc(100% - 24px);
     padding: .5rem;
     position: fixed;
-    z-index: 6;
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
     opacity: 1;
     gap: .8rem;
     /* background: linear-gradient(to right, white 15%, #6a6767 85%); */
-    background-color: white;
     border: 4px double #000;
+    background-color: #FFF;
 }
 
 header nav a {

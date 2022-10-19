@@ -11,7 +11,7 @@ function App() {
    <header>
       <MainNavbar />
    </header>
-   <main>
+   <main >
       <Outlet />
    </main>
    <footer>
