@@ -88,7 +88,7 @@
 
 .burger-title {
     font-family: cursive;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: black;
     text-align: center;
@@ -172,6 +172,7 @@
 .containerQuantidadeProduto {
     text-align: center;
     padding: 1rem;
+    font-weight: bold;
 }
 
 .containerQuantidadeProduto > label{
@@ -232,6 +233,7 @@
     display: none;
     z-index: 4;
     cursor: initial;
+    margin-top: -2rem;
 }
 
 /* ativação do modal */
@@ -242,6 +244,7 @@
 
 .modalSingleProductClick.isActive {
     display: flex;
+    border-color: #289b10;
 }
 
 /* Icon quantidade de produto selecionado */

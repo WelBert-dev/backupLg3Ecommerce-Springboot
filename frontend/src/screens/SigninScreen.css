@@ -1,0 +1,58 @@
+.main-signin--container {
+    width: 100%;
+}
+
+.main-signin--container > #login {
+    width: max-content;
+    margin: 6rem auto;
+    font-size: 1rem;
+    color: #289b10;
+    font-weight: 800;
+    font-family: cursive;
+    padding: 2rem;
+    background-color: black;
+    border: 4px double #289b10;
+}
+
+.main-signin--container > #login > form > h1 {
+    border-bottom: 4px double #289b10;
+    text-align: center;
+}
+
+.main-signin--container > #login > form > p {
+    margin-bottom: .5rem;
+}
+
+.main-signin--container > #login > form > p > label{
+    display: block;
+}
+
+.main-signin--container > #login > form > p > input[type=text], .main-signin--container > #login > form > p > input[type=password]{
+    width: 100%;
+}
+
+.main-signin--container > #login > form > p > input[type=checkbox]{
+    margin-right: .5rem;
+}
+
+.main-signin--container > #login > form > p > input[type=submit]{
+    width: 100%;
+    cursor: pointer;
+    font-family: cursive;
+    font-size: 1rem;
+    background-color: black;
+    color: #ee0000;
+    border: 4px double #ee0000;
+    border-radius: 5px;
+    transition: all ease .3s;
+    padding: .3rem;
+}
+
+.main-signin--container > #login > form > p > input[type=submit]:hover{
+    transform: scale(1.05);
+    background-color: #ee0000;
+    color: #FFF;
+    border-color: black;
+}
+
+
