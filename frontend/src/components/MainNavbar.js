@@ -12,10 +12,9 @@ export default function MainNavbar() {
     
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
     const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
-
-    useEffect(()=>{
-        console.log("Alterou");
-    },[localStorage])
+	
+    const params = window.location.href.substring(1).split("/")[3];
+    console.log(params);
 
     const showNavbar = () => {
         
@@ -25,14 +24,14 @@ export default function MainNavbar() {
             document.getElementById("btn-hamburguer").style.position = 'relative';
             document.getElementById("navbar-container").classList.remove("responsive_nav-opacityZero");
             document.getElementById("navbar-container").classList.add("responsive_nav-opacityUm");
-            console.log("entrou no if");
+            // console.log("entrou no if");
         }else 
         {
             document.getElementById("btn-hamburguer").style.display = 'block';
             document.getElementById("btn-hamburguer").style.position = 'fixed';
             document.getElementById("navbar-container").classList.remove("responsive_nav-opacityUm");
             document.getElementById("navbar-container").classList.add("responsive_nav-opacityZero");
-            console.log("else");
+            // console.log("else");
         }  
     };
 
@@ -42,7 +41,7 @@ export default function MainNavbar() {
         let sum = Number(0);
         for(let i = 0; i < getLocalStorage().length; i++)
         {
-            console.log("sinlge", getLocalStorage()[i].qtdSelected);
+            // console.log("sinlge", getLocalStorage()[i].qtdSelected);
             sum += Number(getLocalStorage()[i].qtdSelected);
         }
 
