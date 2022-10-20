@@ -27,7 +27,7 @@ header, main, footer {
 main {
   min-height: 70vh;
   overflow-y: scroll;
-  max-height: 75vh;
+  max-height: calc(73vh + 4px);
 }
 
 footer {

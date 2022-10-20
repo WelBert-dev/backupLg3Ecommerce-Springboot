@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { FaCartArrowDown } from 'react-icons/fa';
+import { FcSearch } from 'react-icons/fc';
 
 import './MainNavbar.css';
 
@@ -53,6 +54,10 @@ export default function MainNavbar() {
             <nav id="navbar-container" ref={navRef} >
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
+                <div className="main-search--container -gapNone">
+                    <div><input type="text"></input></div>
+                    <div><FcSearch></FcSearch></div>                  
+                </div>
                 <div>
                     <a href="/cart">Carrinho<i className="icon-mainCart"><FaCartArrowDown />
                     {

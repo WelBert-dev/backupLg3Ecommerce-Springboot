@@ -25,6 +25,10 @@ header nav a {
     text-decoration: none;
 }
 
+header nav a:nth-child(1) {
+    padding: .36rem;
+}
+
 header nav a:hover > i > span {
     background-color: white;
     color: red;
@@ -74,7 +78,7 @@ header nav a:hover {
 .icon-mainCart > span {
     border-radius: 50%;
     padding: 0.1rem 0.3rem;
-    background-color: red;
+    background-color: #ee0000;
     font-weight: 800;
     color: black;
     position: relative;
@@ -82,6 +86,43 @@ header nav a:hover {
     font-size: .8rem;
     bottom: 8px;
     text-shadow: none;
+}
+
+.main-search--container {
+    border: 4px double #289b10;
+    border-radius: 5px;
+}
+
+.main-search--container.-gapNone{
+    gap: 0 !important;
+}
+
+.main-search--container > div > input {
+    font-size: 1.4rem;
+    border: none;
+    padding: .2rem;
+    margin-right: 2px;
+}
+
+.main-search--container > div > input:focus {
+    outline-color: #ee0000;
+}
+
+.main-search--container > div:nth-child(2) {
+    display: flex;
+}
+
+.main-search--container > div > svg {
+    font-size: 2rem;
+    border-left: 4px double #289b10;
+    background-color: #289b10;
+}
+
+.main-search--container > div > svg:hover {
+    cursor: pointer;
+    background-color: #2bbb0e;
+    border-left-color: #2bbb0e;
+    transform: scale(1.02);
 }
 
 @media (max-width: 800px)

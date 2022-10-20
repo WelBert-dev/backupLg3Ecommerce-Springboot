@@ -13,11 +13,12 @@
     width: 300px;
     height: 300px;
     max-height: 300px;
-    border: 4px double #ee0000;
+    border: 4px double #289b10;
     transition: all ease-in .3s;
     background-color: white;
     margin-bottom: .3rem;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .main-cardProduct:hover {
