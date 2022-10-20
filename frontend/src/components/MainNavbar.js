@@ -13,8 +13,12 @@ export default function MainNavbar() {
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
     const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
 	
-    const params = window.location.href.substring(1).split("/")[3];
-    console.log(params);
+    var flagSigninPage = false;
+    if(window.location.href.substring(1).split("/")[3] == 'signin')
+    {
+        flagSigninPage = true;
+    }
+    console.log(flagSigninPage);
 
     const showNavbar = () => {
         
@@ -53,10 +57,17 @@ export default function MainNavbar() {
             <nav id="navbar-container" ref={navRef} >
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
-                <div className="main-search--container -gapNone">
-                    <div><input type="text"></input></div>
-                    <div><FcSearch></FcSearch></div>                  
-                </div>
+                {
+                    flagSigninPage ?
+                    "" :
+                    (
+                    <div id="mainSearchId" className="main-search--container -gapNone">
+                        <div><input type="text"></input></div>
+                        <div><FcSearch></FcSearch></div>                  
+                    </div>                        
+                    )
+                }
+                
                 <div>
                     <a href="/cart">Carrinho<i className="icon-mainCart"><FaCartArrowDown />
                     {

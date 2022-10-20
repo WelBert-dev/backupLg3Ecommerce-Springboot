@@ -215,4 +215,24 @@ header nav a:hover {
     .responsive_nav-opacityZero {
         opacity: 0;
     }
+
+    #mainSearchId.main-search--container {
+        position: absolute;
+        flex-direction: row;
+        top: 5px;
+        width: 84%;
+        left: 15px;
+    }
+
+    #mainSearchId.main-search--container > div:nth-child(1){
+        width: 100%;
+    }
+
+    #mainSearchId.main-search--container > div:nth-child(1) > input{
+        width: 100%;
+    }
+
+    header nav a:nth-child(1) {
+        padding: .5rem 0;
+    }
 }
