@@ -1,0 +1,20 @@
+
+
+URL_API_BASE: http://localhost:8080/api/usuario
+
+- Listar todos usuários: GET /listarTodos
+- Criar um novo usuário: POST /salvar
+- Validar senha: GET /validarSenha
+
+
+-- comandos curl:
+
+- Listando todos usuários:
+$ curl -L http://localhost:8080/api/usuario/listarTodos
+
+
+- Criando um novo usuário no banco: 
+
+
+$ curl -X POST -H 'Content-Type: application/json' -d '{"id":"2","login":"seila","password":"pamonha123","firstName":"Irineu","lastName":"InemEu","email":"irineu@hotmail.com","perfilPermissao":"3"}' http://localhost:8080/api/usuario/salvar
+$ curl -X POST -H 'Content-Type: application/json' -d '{"id":"3","login":"raveli","password":"raveli123","firstName":"Miguel","lastName":"Raveli","email":"raveli@hotmail.com","perfilPermissao":"3"}' http://localhost:8080/api/usuario/salvar
