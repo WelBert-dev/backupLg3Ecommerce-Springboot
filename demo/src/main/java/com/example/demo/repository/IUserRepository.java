@@ -9,4 +9,5 @@ public interface IUserRepository extends JpaRepository<UserModel, Integer> {
     // Optional evita problemas de nullpointer except
     // o findBy.. é implementado pelo JPA
     public Optional<UserModel> findByLogin(String login);
+
 }

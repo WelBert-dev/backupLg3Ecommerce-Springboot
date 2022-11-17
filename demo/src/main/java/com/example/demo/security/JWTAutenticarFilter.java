@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
-    public static final int _TOKEN_EXPIRACAO = 600_000;
-    public static final String _TOKEN_SENHA = "463408a1-54c9-4307-bb1c-6cced559f5a7";
+    public static final int TOKEN_EXPIRACAO = 600_000;
+    public static final String TOKEN_SENHA = "463408a1-54c9-4307-bb1c-6cced559f5a7";
 
     private final AuthenticationManager _authenticationManager;
 
@@ -45,6 +45,7 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
             ));
 
         } catch (IOException e) {
+            System.out.println("Entrou no catch");
             throw new RuntimeException("Falha ao autenticar usuario", e);
         }
 
@@ -60,8 +61,8 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 
         String token = JWT.create().
                 withSubject(usuarioData.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + _TOKEN_EXPIRACAO))
-                .sign(Algorithm.HMAC512(_TOKEN_SENHA));
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRACAO))
+                .sign(Algorithm.HMAC512(TOKEN_SENHA));
 
         response.getWriter().write(token);
         response.getWriter().flush();

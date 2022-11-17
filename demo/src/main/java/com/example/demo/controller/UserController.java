@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.model.UserModel;
 import com.example.demo.repository.IUserRepository;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,10 +29,27 @@ public class UserController {
         return ResponseEntity.ok(_userRepository.findAll());
     }
 
-    @PostMapping("/salvar")
+    @PostMapping("/create")
     public ResponseEntity<UserModel> salvar(@RequestBody UserModel usuario) {
         usuario.setPassword(_encoder.encode(usuario.getPassword()));
         return ResponseEntity.ok(_userRepository.save(usuario));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserModel> atualizar(@RequestBody UserModel usuario) {
+        usuario.setPassword(_encoder.encode(usuario.getPassword()));
+        if (_userRepository.existsById(usuario.getId())) {
+
+            return _userRepository.save(usuario);
+        }
+        return ResponseEntity.badRequest();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<UserModel> deletar(@RequestBody UserModel usuario) {
+        usuario.setPassword(_encoder.encode(usuario.getPassword()));
+        _userRepository.delete(usuario);
+        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping("/validarSenha")
