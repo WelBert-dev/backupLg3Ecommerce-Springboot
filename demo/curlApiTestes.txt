@@ -1,20 +1,222 @@
 
 
+
+
 URL_API_BASE: http://localhost:8080/api/usuario
+GET Listar todos: /listarTodos
+POST cadastrar new user: /create (Pelo body)
+GET validar senha: /validarSenha (Parametro URL)
 
-- Listar todos usuários: GET /listarTodos
-- Criar um novo usuário: POST /salvar
-- Validar senha: GET /validarSenha
+------------------------------------------// API -----------------------------
+
+~ Oque é uma API? Application Programming Interface (Interface de Programação de Aplicação).
+
+	- É Uma aplicação que abstrai a complexidade e serve como uma interface, de requisições
+	normalmente com retorno JSON
+
+	- Essa é a diferença entre a aplicação convencional que "cospe" view,
+	e ao invés disto, "cospe" um array de objetos
+
+~ Porque ela é bastante utilizada hoje em dia?
+
+	- Desacoplamento, ou seja separar a aplicação em sí de outras tecnologias.
+
+	- Pois assim, podemos integrar facilmente com outras tecnologias, não apenas web
+	mas também consumir recursos e apresentar em diferentes tecnologias,
+	mobile, desktop dentre outros...
+
+	- Antes de existir esse conceito, fazendo uma aplicação que "cospe"
+	view faz um acoplamento com essas tecnologias, e se no futuro
+	desejar escalar para outras tecnologias de apresentação, 
+	não sera facil essa migração...
+
+------------------------------------------ // REST / API REST -----------------
+
+~ Oque é REST? ou RESTFULL? para que diaxo serve isto?
+	
+	- Representational State Transfer (Transferência de estado representacional) EOQ
+	- Só é suportado apartir da versão 1.1 do protocolo HTTP
+	- Ou seja, é um conjunto de regras que retornam o estado atual dos objetos no servidor
+		exemplo: numero de vizualizações de um vídeo x: tal <- estado atual do objeto "video"
+	- Resumido: é um padrão que todos devem entender (tipo um protocolo), e ele possui algumas regras
+	porisso os conceitos "rest e restFull", ou seja se respeita todas as regras pode ser conciderado "Full"
+
+	- Conceitos REST: Utilizar da semântica HTTP.
+	- Oque seria essa semântica?
+		Significado, pois o protocolo HTTP possui aqueles verbos la (GET, POST, PUT, DELETE..)
+	- resumindo: Ao requisitar um usuário utilizamos o /usuario com o método GET (pegar)
+		     Ao salvar um novo usuário utilizamos o /usuario com o método POST (Enviar)
+		     Ao atualizar um usuário ja existente utilizamos o /usuario com o método PUT (Atualizar)
+		     Ao deletar um usuário ja existênte utilizamos o /usuario com o método DELETE (Deletar)
+	- Viu como fica "semântico"? vc sabe as ações que estão sendo tomadas de acordo com os métodos HTTP 
+	- Assim fica mais facil de implementar e dar manutenções por existir esse "padrão".
+
+	- Stateless: Ou seja, cada requisição é completamente independênte
+	não sendo armazenado nenhum estado do lado do servidor
+	
+	- Utiliza a URI para passar as informações.
+	- Utiliza dos métodos GET, POST, PUT e DELETE do HTTP.
+	- Utiliza dos mime-type (Contente-type) tipo de conteúdo para solicitar e retornar o conteúdo,
+		sendo eles: JSON, XML, HTML, PDF, TXT, e etc..
+		expecificando o tipo de entrada e retorno da aplicação REST
+	
+		Formato mais utilizado: JSON (Foi oque eu adotei nessa API)
+
+	- Essa integração e "semântica" do HTTP citada anteriormente em que o REST tem o objetivo de reforçar serve
+	também para os resultados das requisições!
+		- 200 OK
+		- 201 Created (Quando cria um, recurso com POST por exemplo).
+		- 204 No Content (Processo deu certo, porém não existe nenhum retorno)
+		- 401 Unauthorized (Recurso que é necessário privilégios para acessar, ou seja ocorreu uma falha na autenticação)
+		- 405 Method Not Alowed (Método HTTP solicitado não suportado, exemplo: usuário tenta utilizar o método
+		DELETE e ele não é permitido.
+		- Dentre outros..
+
+	- Resumindo: REST Nada mais é que um estilo de arquitetura, aonde a ideia é dar essa "semântica" e padronizar
+	as trocas de menssagens HTTP, assim por reforçar esses usos, facilita na implementação e manutenções
+	aonde, não é preciso muito esforço para saber oque esta acontecendo.. pois se todos seguirem esse padrão
+	a troca de mensagens HTTP ficam mais fluidas e com significado, 
+	Não importa para o PC, nó fim tudo é um linguição de bits... "O código foi feito para o homen entender". :D
+
+------------------------------------------ // Springboot ---------------------
+
+~ Oque é/aonde mora/como vive Springboot? para que serve?
+
+	- Framework Java, para facilitar nossa vida.
+	- Bastante utilizado para criação de app web (SpringWeb).
+	- O Spring possui varias ramificações sendo elas SpringWeb, SpringSecurity, SpringMVC, Spring JPA (Banco de dados e etc)
+	- Porisso é bastante utilizado (talvez o framework Java mais famoso).
+	- Bem completo para farios cenários não apenas nas tecnologias web.
+	- Sintaxe simples e limpa (particularmente eu ja estudei ASP.NET da Microsoft, 
+	e o Spring da 10 a 0 em relação ao clean, opinião pessoal rsrs)
+	- Possui um conceito bem parecido com o react, aonde todos metodos/classes são componentes
+	- Anotações (@Alguma coisa) <- essas anotações que definem um componente spring (bean)
+	- Essas anotações fazem configurações "por debaixo dos panos" facilitando nossa vida.
+	- Bastante documentação sobre e de graça (por ser o framework mais famoso, fonte: vozes da minha mente)
+	- Estudando a 1 mês ja amando.
+
+~ Como faço pra utilizar sajoça?
+	
+	- É bem simples, basta jogar "springboot initializer" no google.
+	- Ir no primeiro site, selecionar as dependências necessárias.
+	- e gerar o package, depois basta descompactar e abrir na sua IDE favorita.
+	- de preferência utilizar o "inteliJ" pois é a IDE mais utilizada para trabalhar com java (mesma fonte anterior).
+
+~ Como baixar as dependências selecionadas anteriormente?
+	
+	- Após todo o trâmite anterior, basta ir no arquivo "pom.xml"
+	que se encontra na raiz do projeto e clicar no icon camarada.
+	
+	- Em teoria é bem simples adicionar mais dependências futuramente, se necessário!
+	- basta copiar o codigo "xml" da dependência para "maven" e clicar no icon novamente.
+		exemplo: tio google: spring security maven pom dependency	
+ 	- obs: se essa dependência for algum dos ramos do spring, não é necessário 
+	informar a versão dessa dependência, pois o proprio spring é camarada
+	e por debaixo dos panos ira gerenciar essas versões :D
+
+	- EM CASO DE DEPENDENCIA NÂO SER UM DOS RAMOS SPRING é impressindível indicar a versão no pom
+	
+	- exemplo de xml dependency maven no pom:
+	
+	<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-core</artifactId>
+    		<version>5.7.5</version>
+    	</dependency> 
+
+----------------------------------------- // 1o - Preparando o banco ------------------------------------------------------
+1o - Roda a aplicação e leia os erros!!
+
+create database DB_LG3_RestauranteIFSP;
+use DB_LG3_RestauranteIFSP;
+
+create table usuario... que vai dar erro no console.
+
+----------------------------------------- // JWT --------------------------------------------------------------------------
+~ Oque é? aonde vive? oque come?
+
+	- JSON Web Token.
+	- Utilizado para garantir que o usuário possui permissões para acessar alguns recuros/endpoints das nossas APIS.
+	- Fluxograma basico:
+		- Login -> Váliso? (Recebe o TOKEN GERADO) Não Válido? (UNAUTORIZED) -> Futuras requisições LOOPING anterior
+	- Composição de um TOKEN:
+		- 1 parte (Header): {"alg":"HS256", "type":"JWT"} 
+		Indica qual tipo de TOKEN e qual a criptografia utilizada
+		- 2 parte (Payload) aonde esta contido as claims: {"id":10}
+		- 3 parte (Signature): Assinatura, aonde faz um calculo e criptografa de acordo com o conteúdo do header + payload com a criptografia setada no proprio Header
+
+----------------------------------------- // 2o - Criando o usuário inicial ----------------------------------------------
+Obs: Necessário pois para outras requisições é necessário o token JWT (rotas liberadas: (/login) e (/api/usuario/create)
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"5", "login":"jubileu", "password":"jubinaoleu123", "firstName":"JubileuNão", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"5", "login":"jubiNaoLeu", "password":"jubinaoleu", "firstName":"Jubileu", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+
+- Criado ira retornar no console o Json!
+- Testar uma requisição em outra rota privada, sem o TOKEN!
+
+curl -L http://localhost:8080/api/usuario/listarTodos
+
+---------------------------------------- // 3o - Realiza login para obter o Token JWT ------------------------------------
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY3NDIxMTIxfQ.2EE1Ur9pOvDJRZ1Hb1QvQPd85V9WD30mjVfqRjVCdjIL58UvZZBm37P5mm4vbaYPWH6OcPjNdwqFHUI3aU1tsw 
+
+curl -X POST -H 'Content-Type: application/json' -d '{"login":"jubileu", "password":"jubinaoleu123"}' http://localhost:8080/login
+
+- Ira retornar o Token
+
+---------------------------------------- // 4o - Faz as requisições desejadas mandando o Token no header -----------------
+
+curl -L --header 'Authorization: Bearer TOKEN' http://localhost:8080/api/usuario/listarTodos
+
+curl -L --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY3NDIxMTIxfQ.2EE1Ur9pOvDJRZ1Hb1QvQPd85V9WD30mjVfqRjVCdjIL58UvZZBm37P5mm4vbaYPWH6OcPjNdwqFHUI3aU1tsw' http://localhost:8080/api/usuario/listarTodos
 
 
--- comandos curl:
-
-- Listando todos usuários:
-$ curl -L http://localhost:8080/api/usuario/listarTodos
+---------------------------------------- // 5o - Atualiza informações de usuário -----------------------------------------
 
 
-- Criando um novo usuário no banco: 
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+- Salvando um novo usuário: 
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"1", "login":"wellison", "password":"wel123", "firstName":"Wellison", "lastName":"Bertelli", "email":"wellison@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create 
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"2", "login":"pamonha", "password":"kiritu123", "firstName":"Irineu", "lastName":"InemEu", "email":"inemeu@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create  
 
 
-$ curl -X POST -H 'Content-Type: application/json' -d '{"id":"2","login":"seila","password":"pamonha123","firstName":"Irineu","lastName":"InemEu","email":"irineu@hotmail.com","perfilPermissao":"3"}' http://localhost:8080/api/usuario/salvar
-$ curl -X POST -H 'Content-Type: application/json' -d '{"id":"3","login":"raveli","password":"raveli123","firstName":"Miguel","lastName":"Raveli","email":"raveli@hotmail.com","perfilPermissao":"3"}' http://localhost:8080/api/usuario/salvar
+-H "Content-Type: application/x-www-form-urlencoded"
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"3", "login":"poçoka", "password":"eoq123", "firstName":"Irineia", "lastName":"InemTu", "email":"irineia@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create  
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"4", "login":"paparazzi", "password":"papa123", "firstName":"Paparazzi", "lastName":"Bertelli", "email":"paparazzi@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create  
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"5", "login":"jubileu", "password":"jubinaoleu123", "firstName":"Jubileu", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create
+
+
+
+
+------------------------------------------- // 07/11/2022 testando na aula de PJ2 
+
+-- Obs: Consegui executar o projeto spring no inteliJ do Windows sem ser premium!!! 
+-- Solução: Baixar o "Springboot helper" e "Springboot Assistente".
+-- Para isto basta ir em: File > Settings > Plugins > Search <--- aqui 
+-- Obs: Aplication json não aceita espaços entre as propriedades do objeto!!!
+
+
+caminho do binário do curl no windows: C:\Users\aluno\Downloads\curl-7.86.0-win64-mingw\curl-7.86.0-win64-mingw\bin
+
+Listando todos:
+C:\Users\aluno\Downloads\curl-7.86.0-win64-mingw\curl-7.86.0-win64-mingw\bin\curl -L http://localhost:8080/api/usuario/listarTodos
+
+Criando um novo usuário: 
+C:\Users\aluno\Downloads\curl-7.86.0-win64-mingw\curl-7.86.0-win64-mingw\bin\curl -X POST -H 'Content-Type: application/json;charset=UTF-8;' -d '{"id":"5","login":"jubileu","password":"jubinaoleu123","firstName":"JubileuNão","lastName":"NaoLeu","email":"jubileu@hotmail.com","perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"5", "login":"jubileu", "password":"jubinaoleu123", "firstName":"JubileuNão", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+
+
+
+------------------------------------------- // 07/11/2022 Corrigindo novo erro, porém no curl  (415 - Unsupported Media Type)
+Definição: Ocorre pois o Spring não faz tratamento de Json com um PostMapping comum, é preciso anotar com RequestMapping e passar configurações para funcionar!
+Obs: Ainda ocorrendo
+
+C:\Users\aluno\Downloads\curl-7.86.0-win64-mingw\curl-7.86.0-win64-mingw\bin\curl --request POST --url http://localhost:8080/api/usuario/create --header 'content-type: application/json; charset=UTF-8' --data '{"id":"5","login":"jubileu","password":"jubinaoleu123","firstName":"JubileuNão","lastName":"NaoLeu","email":"jubileu@hotmail.com","perfilPermissao":"1"}' 
