@@ -145,6 +145,41 @@ create table usuario... que vai dar erro no console.
 		- 2 parte (Payload) aonde esta contido as claims: {"id":10}
 		- 3 parte (Signature): Assinatura, aonde faz um calculo e criptografa de acordo com o conteúdo do header + payload com a criptografia setada no proprio Header
 
+----------------------------------------- // Curl e porque linha de comando? -----------------------------------------------
+Curl é um navegador web porém sem interface gráfica.
+Vantagem: Além de praticar linha de comando, é bem mais leve que um browser como o chrome, multiplataforma (Rindows, mac, Lindux e etc..) e
+por utilizar linha de comando é possível integrar com outros programas e realizar ações mais complexas.
+
+- Como assim? 
+Como já estudado até hoje, sabemos que tudo no computador são arquivos (de "formatos" diferentes, podendo ser txt, PDF... e binários),
+aonde esses "binários" são nada mais nada menos que programas executáveis, e para os mesmos é possível passar parâmetros que alteram seu comportamento.
+
+Ai que esta a MAGICA da coisa, como assim  wellisu?
+EXATAMENTE, rsrs.. 
+
+Imagena um cenário aonde podemos "Extender" nosso cérebro?
+SIM isso mesmo, saber como um computador opera é o mesmo que FUCKING EXTENDER o cérebro!
+
+Nosso cérebro passa 24horas processando informações, controlando nosso corpo e CALCULANDO, e vc nem faz nada para isso acontecer! rsrs
+O computador é basicamente isso, ele foi até inspirado em nós (com memória e etc), saber como um computador trabalha é o mesmo que EXTENDER,
+o cérebro e assim gerar resultados INCRÍVEIS! ;D 
+
+MATEMATICA é a linguagem do universo, pois ela descreve seu comportamento e RARAMENTE erra! é a linguagem mais IMPORTANTE conhecida pela humanidade,
+e interagir com o PC é o mesmo que CONVERSAR com o UNIVERSO!
+
+EU SOU RUIM EM MATEMATICA, hahaha meu fiooo, o PC FAZ O CALCULO PRA VC, basta pesquisar no GOOGLE a fórmula para o problema e PIMBA, o pc resolve
+isso que eu quero dizer sobre EXTENDER a mente..
+
+- Porque falam que programar é "Resolver problemas?" 
+Pois grande parte de nosso tempo é entendendo o problema, apenas 10% é o código em sí, pois como dito antes.. queremos transformar um problema do MUNDO REAL
+em código para que o computador faça o trabalho pesado!
+
+e linha de comando é isso, você execultar um programa passando parametros para alterar seu comportamento natural e o resultado desse processamento passar para a entrada de outro programa, e assim vai até gerar um resultado observável!! isso é incrível, pois o limite é a sua imaginação!!
+
+se isso não te convenceu a trocar o Ruindows pelo LINDUX eu não sei oq irá rsrs...
+
+Então para demonstrar tudo isso na prática iremos realizar essas requisições por linha de comando NO PRÓPRIO ruindows de uma maneira bem simples e elegante!! 
+
 ----------------------------------------- // 2o - Criando o usuário inicial ----------------------------------------------
 Obs: Necessário pois para outras requisições é necessário o token JWT (rotas liberadas: (/login) e (/api/usuario/create)
 
