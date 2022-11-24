@@ -1,0 +1,94 @@
+Data: 23/11/2022 
+Link: https://www.youtube.com/watch?v=nt6jxy3yb1k
+
+
+---------------------- // Definições iniciais
+
+
+1o - Cria-se o ./PermissionsGate.js e nele:
+	- Responsabilidades: Receber um componente react (Elemento html) como children, e um array de permissões do usuário como props, e aplicar uma lógica envolto que verifica se o usuário tem permissões e quais são elas para assim módificar esse componente e retornalo modificado de acordo com elas.
+
+---------------------- // Implementação do ./PermissionsGate.js:
+
+// Mockando o hook useGetCommumUserPermissions();
+
+const useGetCommumUserPermissions = () => {
+	// Implementação que pega as permissões dos usuários comuns
+	// podendo ser um fetch na API por exemplo.
+	
+	return ['canSeeTitle', 'canEditTitle', 'canSave'];
+}
+
+--------// Implementação do componente react que verifica as permissões necessárias para retornar um children (Ou seja um componente react ou um JSX)
+
+---// Deve possuir apenas uma das permissões passadas no parâmetro:
+
+export const default SomeHaveOneOfPermissionsGate = ({children, mustThisPermissions, havaThisPermissions}) => {
+	
+	if (mustThisPermissions
+		.some(permission => {
+			return havaThisPermissions.includes(permission)
+		})
+	) {
+		return children;
+	}
+	
+	return null;
+}
+
+---// Deve possuir TODAS as permissões passadas no parâmetro:
+---// ou seja, faz match de mustThisPermissions com havaThePermissionsX
+
+export const default SomeHaveAllPermissionsGate = ({children, requiredAllThisPermissions, havaThisPermissions}) => {
+	
+	
+	if (requiredAllThisPermissions
+		.every(permission => {
+			return havaThisPermissions.includes(permission)
+		})
+	) {
+		return children;
+	}
+	
+	return null;
+}
+
+// Resumindo: Percorremos um array de permissões para os usuários em geral
+	podendo ser ["canSeeTitle", "canSeeBtnExclude", "canSeeBtnUpdate"]
+	e verifica se a permissão passada na chamada do método bate com 
+	as permissões de usuário comum. 
+		ou seja, na chamada passamos a permissão que o usuário deve ter
+		para tal children ser retornado.
+	
+	- Neste caso basta uma das permissões para funcionar, desde que seja
+	"canSeeTitle" recebida na chamada, 
+	
+	- Em casos aonde o usuário deve pouir TODAS permissões utilizar:
+	No lugar de ".some(permission => {...})" substitui-lo por:
+	".every(permission => {...})" assim o retorno só seria true se
+	o permission (do usuário corrente) passado bater com TODAS
+	as permissões necessárias dispostas no array do hook
+	useGetUserPermissions();
+	
+---------------------- // Utilizando a lógica anterior em um componente react (JsX):
+	
+	return ( // deve possuir uma das permissões passadas no parâmetro.
+		<SomeHaveOnePermissionsGate permissions={['canSeeTitle']}>
+			<h1>Um titulo legal</h1>
+		<SomeHaveOnePermissionsGate />
+	);
+	
+---------------------- // Mesmo exemplo porém utilizando em um CRUD:
+---------------------- // Aonde deve-se possuir TODAS permissões passadas.
+
+	return ( // deve possuir todas as permissões passadas como parâmetro.
+		<MustHaveAllPermissionsGate permissions={[
+		'canSeeTitle',
+		'canEdit',
+		'canDelete',
+		'canSave',
+		'canAdd'
+		]}>
+			<h1>Um titulo legal</h1>
+		<MustHaveAllPermissionsGate />
+	);
