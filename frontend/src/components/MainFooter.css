@@ -14,8 +14,6 @@ footer {
     justify-content: center;
     padding: .5rem;
     background-color: #FFF;
-    z-index: 10;
-    position: fixed;
 }
 
 footer > div {
