@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.main-signin--container > #login {
+.main-signin--container > #createAccount {
     width: max-content;
     margin: 0 auto;
     font-size: 1rem;
@@ -25,56 +25,46 @@
     
 }
 
-.main-signin--container > #login > form > h1 {
+.main-signin--container > #createAccount > form > h1 {
     border-bottom: 4px double #ee0000;
     text-align: center;
     font-size: 1.5rem;
 }
 
-.main-signin--container > #login > form > p {
+.main-signin--container > #createAccount > form > p {
     margin-bottom: .5rem;
 }
 
-.main-signin--container > #login > form > p:nth-child(2) {
+.main-signin--container > #createAccount > form > p:nth-child(2) {
     margin-top: .5rem;
 }
 
-.main-signin--container > #login > form > p > label{
+.main-signin--container > #createAccount > form > p > label{
     display: block;
 }
 
-.main-signin--container > #login > form > p > input[type=text], .main-signin--container > #login > form > p > input[type=password]{
+.main-signin--container > #createAccount > form > p > input[type=text], .main-signin--container > #createAccount > form > p > input[type=password]{
     width: 100%;
     height: 1.1rem;
 }
 
-.main-signin--container > #login > form > p > input[type=text], 
-.main-signin--container > #login > form > p > input[type=password]{
+.main-signin--container > #createAccount > form > p > input[type=text], 
+.main-signin--container > #createAccount > form > p > input[type=password]{
     padding: .1rem;
 }
-
-.main-signin--container > #login > form > p > input:focus {
+.main-signin--container > #createAccount > form > p > input:focus {
     border: 2px double #ee0000;
     outline-color: #ee0000;
 }
 
 
-.main-signin--container > #login > form > p > input[type=checkbox]{
+.main-signin--container > #createAccount > form > p > input[type=checkbox]{
     margin-right: .5rem;
     display: inline-block;
 }
 
-.main-signin--container > #login > form > p:nth-child(4) > label{
-    display: inline-block;
-}
-
-.main-signin--container > #login > form > p:nth-child(6) > a{
-    color: #289b10;
-    margin-left: .5rem;
-    text-decoration: underline;
-}
-
-.main-signin--container > #login > form > p > input[type=submit]{
+.main-signin--container > #createAccount > form > p > input[type=submit], 
+.main-signin--container > #createAccount > form > p > input[type=reset]{
     width: 100%;
     cursor: pointer;
     font-family: cursive;
@@ -87,7 +77,14 @@
     padding: .3rem;
 }
 
-.main-signin--container > #login > form > p > input[type=submit]:hover{
+.main-signin--container > #createAccount > form > p > input[type=submit]:hover{
+    transform: scale(1.05);
+    background-color: #289b10 ;
+    color: #FFF;
+    border-color: black;
+}
+
+.main-signin--container > #createAccount > form > p > input[type=reset]:hover{
     transform: scale(1.05);
     background-color: #ee0000;
     color: #FFF;

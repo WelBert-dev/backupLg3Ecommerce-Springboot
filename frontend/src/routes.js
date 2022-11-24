@@ -8,6 +8,7 @@ import { isRootUser } from './auth';
 import App from './App';
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen';
+import CreateAccountScreen from './screens/CreateAccountScreen.js';
 
 // react Component (Stataless ou seja não armazena estados)
 // então o mesmo pode ser definido como uma função que retorna outra.
@@ -28,7 +29,8 @@ const MainRoutes = () => (
             <Route element={<App />} >
                 <Route path="/" element={<HomeScreen />} exact/>
                 {/*<Route path="cart" element={<CartScreen />} />*/}
-                <Route path="/signin" element={<SigninScreen />} />
+                <Route exact path="/signin" element={<SigninScreen />} />
+                <Route exact path="/signin/createAccount" element={<CreateAccountScreen />} />
 
                 <Route exact 
                         path='/logado' 
