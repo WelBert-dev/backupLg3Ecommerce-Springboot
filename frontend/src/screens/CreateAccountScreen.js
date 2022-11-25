@@ -32,7 +32,7 @@ export default function CreateAccountScreen() {
 		console.log(e);
 		
 		if (isFormValid) {
-			// fetch na API referencia: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+			// fetch na API referência: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 			
 			const firstName = document.querySelector('#firstName_createAccount').value;
 			const lastName = document.querySelector('#lastName_createAccount').value;

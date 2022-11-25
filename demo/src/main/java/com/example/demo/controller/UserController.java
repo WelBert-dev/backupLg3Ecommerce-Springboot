@@ -32,24 +32,26 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<UserModel> salvar(@RequestBody UserModel usuario) {
         usuario.setPassword(_encoder.encode(usuario.getPassword()));
+        usuario.setPerfilPermissao("1");
         return ResponseEntity.ok(_userRepository.save(usuario));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserModel> atualizar(@RequestBody UserModel usuario) {
+    public ResponseEntity<UserModel> atualizar( @RequestParam Map<UserModel, UserD> body  UserModel usuario) {
         usuario.setPassword(_encoder.encode(usuario.getPassword()));
+        usuario.setPerfilPermissao("1");
         if (_userRepository.existsById(usuario.getId())) {
-
-            return _userRepository.save(usuario);
+            _userRepository.save(usuario);
+            return new ResponseEntity<UserModel>(usuario, HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.badRequest();
+        return new ResponseEntity<UserModel>(usuario, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<UserModel> deletar(@RequestBody UserModel usuario) {
         usuario.setPassword(_encoder.encode(usuario.getPassword()));
         _userRepository.delete(usuario);
-        return ResponseEntity.ok(usuario);
+        return new ResponseEntity<UserModel>(usuario, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/validarSenha")

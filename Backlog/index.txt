@@ -1,0 +1,58 @@
+- Data de criação: 24/11/2022.
+- Objetivo: Manter um controle das tarefas/desenvolvimento e documentar o conhecimento.
+
+- Definição:
+Aqui ficaram dispostas as principais atividades pendêntes.
+Para cada tarefa um número e um nível de prioridade.
+Tarefas mais prioritarias seram desenvolvidas primeiro.
+Em caso de tarefas complicadas, o conhecimento adquirido ficará anotado também com fontes e etc...
+
+----------------------------------- // NOVAS TAREFAS PRIORITARIAS:
+...
+
+
+----------------------------------- // MODIFICAÇÂO TAREFAS PRIORITARIAS:
+
+01 - 24/11/2022 - Foi modificado a API Springboot, o controller de usuários,
+aonde não estava sendo possível realizar fetch com curl de corpo JSON,
+a origem do problema se dava pois a Anotação (@RequestBody UserModel usuario) o parâmetro,
+aonde ela não possui suporte para requests com body JSON, então foi necessário parar para estudos,
+foi mencionado sobre a coleção Map do Java, sei sobre a hierarquia das List's e sei que o Map é uma
+das subClasses dela.
+
+- Mais features realizadas: 
+- Modificado o frontend e adicionado:
+    - (./src/screens/CreatedAccount.js): Tela de criação de conta, encontrada clicando em "Cadastrar-se",
+    no /signin (./src/screens/SigninScreen.js).
+        - A Mesma faz um fetch na API, porém antes de realizar eu fiz verificações no Springboot, 
+        com o curl eu testei o (endPoint: /api/usuario/create) e ouve error de interpretação do bodyJson
+        problemas descritos em cima /\
+
+    - Autenticação e Autorização no ReactJs: 
+    Tecnicas para tal sendo possível realizar o procedimento,
+    ambos os procedimentos abaixo seguem o mesmo príncipio:
+    Realizar fetch na API enviando o Token JWT salvo em localStorage,
+    e de acordo com a lista de permissões ['canSeeTitle', 'canEditForm', 'canSaveForm', 'canDeleteForm']
+    (Autenticação a nível de componentes react)
+    ou de acordo com o perfil barra acesso em rotas Root. (Autenticação a nível de rotas URL)
+
+        - A nível de componentes: Retorna componentes especificos de acordo com as permissões.
+        - A nível de rotas: Administração de rotas com o react-router-dom, modificando comportamentos
+        de acordo com o perfil de usuário. (rootUser, regularUser, nullUser) 
+
+-----------------------------------
+
+
+
+----------------------------------- // NOVAS TAREFAS:
+...
+
+
+----------------------------------- // MODIFICAÇÃO TAREFAS:
+...
+
+
+----------------------------------- // IDEIAS PARA MELHORIA/ADIÇÃO:
+...
+
+

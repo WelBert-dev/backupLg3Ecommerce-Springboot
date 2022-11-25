@@ -1,0 +1,280 @@
+Data de Implementação Inicial: 24/11/2022
+- Implementações no frontend, com react-router-dom por enquanto 
+
+- Segue rascunho com anotações em geral:
+
+-----------------------------------// Data: 24/11/2022 - Autenticação e Autorização no ReactJs
+
+nullUser: (Não logado)
+- mainNavBar: btnHome, txtBoxSearch, btnCarrinho, btnFazerLogin.
+
+communUser: (Logado porém usuário simples)
+- mainNavBar: btnHome, txtBoxSearch, btnCarrinho, btnFazerLogOff.
+
+rootUser:
+- mainNavBar: btnHome, btnGerenciar, txtBoxSearch, btnCarrinho, btnFazerLogOff.
+
+PermissõesArray:
+
+nullUser:
+['canSeeBtnFazerlogin']
+
+communUser:
+['canSeeFazerLogOffArea', 'canSeeFinalizeBuyArea']
+
+rootUser:
+['canSeeFazerLogOffArea', 'canSeeFinalizeBuyArea', 'canSeeRootArea']
+
+
+
+
+---------------------------- // Controlando autenticação em rotas no ReactJS | Diego Fernandes
+1o - Implementa o componente ./router.js
+
+import React from 'react';
+
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
+
+// react Component (Stataless ou seja não armazena estados)
+// então o mesmo pode ser definido como uma função que retorna outra.
+
+// BrowserRouter: Empacota tudo e possibilita a controlar a rota, 
+// e a manipulação da URL
+
+// Switch: Garante que apenas a primeira ocorrência de rotas será chamada,
+// Pois o BrowserRouter "deixa" matchs em componentes que ouvem a mesma rota
+// então o mesmo abriria as duas, o Switch garante que será apenas a primeira
+
+
+// Rota em geral
+
+const Routes = () => (
+<BrowserRouter>
+	<Switch>
+		<Route exact
+			path="/" 
+			component={() => <h1>Ola Mundo</h1>}>
+		</Route>
+		<PrivateRouteLogado path="/logado" component={() => <h1>Você está logado</h1>}
+		<PrivateRouteRootArea path="/rootArea" component={() => <h1>Area do Super Usuário ;D</h1>}
+	</Switch>
+</BrowserRouter>
+
+);
+
+
+// Rota privada para logado
+
+import { isAuthenticated } from './auth';
+
+const PrivateRouteLogado = ({ component: Component, ...rest }) => (
+
+<Route { ...rest } render={props => (
+	isAuthenticated() ? ( // renderira o componente
+		<Component { ...props } />	
+	):(
+		// Se não, redireciona para a tela de autentição/login
+		// state garante que usuário não perca o histórico de ações e etc.
+		// devido ao re-load
+		...
+		<Redirect to={{ pathname: '/sigin', state: { from: props.location } }}
+	) 
+)}/>
+
+);
+
+
+// Rota privada para admin
+
+import { isRootUser } from './auth';
+
+const PrivateRouteRootArea = ({ component: Component, ...rest }) => (
+
+<Route { ...rest } render={props => (
+	isRootUser() ? ( // renderira o componente
+		<Component { ...props } />	
+	):(
+		// Se não, redireciona para a tela de autentição/login
+		// state garante que usuário não perca o histórico de ações e etc.
+		// devido ao re-load
+		...
+		<Redirect to={{ pathname: '/sigin', state: { from: props.location } }}
+	) 
+)}/>
+
+);
+
+
+export default Routes;
+
+
+------------- // chamando routes no ./App.js
+
+import Routes from './routes';
+
+return <Routes />
+
+
+
+------------- // 2o - Implementa o ./auth.js
+
+- 1o - Usuário se autentica.
+- 2o - Fetch na API/Servidor de autenticação passando o usuário.
+- 3o - Se usuário válido servidor devolve um token jwt
+- 4o - frontend guarda no storage do navegador para futuras requisições.
+
+
+- Então aqui iremos verificar se usuário esta autenticado, caso contrario
+- iremos redireciona-lo para a tela de autenticação.
+
+
+const isAuthenticated = () => {
+ // Acessa localstorage e verifica se tem token, 
+ // Se não tiver, redireciona usuário para a tela de login.
+
+	const getLocalStorage = () => JSON.parse(localStorage.getItem('auth_token_JWT')) ?? [];
+	const setLocalStorage = (authTokenJWT) => localStorage.setItem("auth_token_JWT", JSON.stringify(authTokenJWT));
+	
+	if (getLocalStorage) {
+		// usuário está autenticado
+		...
+		return true;
+	}
+
+	return false;
+}
+
+
+const isRootUser = () => {
+ // Acessa localstorage e verifica se tem token
+ // Faz uma requisição com ela, para verificar se usuário é root   
+ // Se não tiver token, redireciona para o login, 
+ // Se tiver token, porém não é root, redireciona para a home.
+
+	const getLocalStorage = () => JSON.parse(localStorage.getItem('auth_token_JWT')) ?? [];
+	const setLocalStorage = (authTokenJWT) => localStorage.setItem("auth_token_JWT", JSON.stringify(authTokenJWT));
+	
+	if (typeof getLocalStorage() !== 'undefined' && getLocalStorage().length > 0) {
+		// usuário está autenticado, agora verificar se é rootUser
+		// faz fetch na API POST /api/rootUserAuthenticated (Recebe um body JWT)
+		// se userRoot == true api retorna 200 OK 
+		...
+		return true;
+		else {
+			return false;
+		}
+	}
+
+	return false;
+}
+
+
+
+
+
+
+
+
+
+------------------------------------------ // ./index.js backup
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import { Provider } from 'react-redux';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import HomeScreen from './screens/HomeScreen';
+import SigninScreen from './screens/SigninScreen';
+
+import './index.css';
+import App from './App';
+import store from './store';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Provider store={store}>
+    <React.StrictMode>
+        <BrowserRouter>
+            <Routes>
+              <Route element={<App />} >
+                <Route path="/" element={<HomeScreen />} exact/>
+                {/*<Route path="cart" element={<CartScreen />} />*/}
+                <Route path="signin" element={<SigninScreen />} />
+              </Route>
+            </Routes>
+        </BrowserRouter>
+    </React.StrictMode>
+  </Provider>
+  
+);
+
+
+
+
+------------------------------------------- // Criando a screen: ./src/screens/CreateAccountScreen.js
+caminhod do intellij: D:\JetBrains\IntelliJ IDEA Community Edition 2022.2.4
+
+{"id":"1", "login":"jubileu", "password":"jubinaoleu123", "firstName":"JubileuNão", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"
+
+router dom v6: https://www.youtube.com/watch?v=G7hHdcW4kQY
+sistema login bonieky: https://www.youtube.com/watch?v=iD94avNeoXM
+micro frontend nginx: https://www.youtube.com/watch?v=5_Ie7ykJ9Iw
+
+
+https://github.com/WelBert-dev
+
+D:\jdk-17\bin
+
+#289b10 - green
+
+
+
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -L http://localhost:8080/api/usuario/listarTodos
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -X POST -H 'Content-Type: application/json' -d '{"id":"1","login":"jubileu","password":"jubinaoleu123","firstName":"JubileuNão","lastName":"NaoLeu","email":"jubileu@hotmail.com","perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+
+--------------------------------------------- // 17:43 Pausa para estudar a collection Map<> do Java
+Motivos: Error no fetch do curl
+Fonte: https://stackoverflow.com/questions/33796218/content-type-application-x-www-form-urlencodedcharset-utf-8-not-supported-for
+
+Stacktrace:
+2022-11-24 16:31:15.322  WARN 8392 --- [nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported]
+
+Resumindo: A Anotação @RequestBody utilizada no controller do usuário, não suporta corpo Json nas requisições,
+ela não consegue fazer o parsing Entidade/Model <=> DTO e acusa erros...
+
+
+188
+
+
+The problem is that when we use application/x-www-form-urlencoded, 
+Spring doesn't understand it as a RequestBody. 
+So, if we want to use this we must remove the @RequestBody annotation.
+
+Then try the following:
+
+@RequestMapping(
+  path = "/{email}/authenticate", 
+  method = RequestMethod.POST,
+  consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, 
+  produces = {
+    MediaType.APPLICATION_ATOM_XML_VALUE, 
+    MediaType.APPLICATION_JSON_VALUE
+  })
+public @ResponseBody Representation authenticate(
+  @PathVariable("email") String anEmailAddress, 
+  MultiValueMap paramMap) throws Exception {
+
+  if (paramMap == null && 
+      paramMap.get("password") == null) {
+     throw new IllegalArgumentException("Password not provided");
+  }
+  return null;
+}
+Note that removed the annotation @RequestBody
+
+answer: Http Post request with content type application/x-www-form-urlencoded not working in Spring
+ 
