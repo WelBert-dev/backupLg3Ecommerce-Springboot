@@ -1,7 +1,8 @@
 package com.example.demo.security;
 
 import com.example.demo.data.UserDatailData;
-import com.example.demo.model.UserModel;
+import com.example.demo.dtos.UserAccountDTO;
+import com.example.demo.models.UserModel;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -35,9 +36,10 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
-            UserModel usuario = new ObjectMapper()
-                    .readValue(request.getInputStream(), UserModel.class);
-
+            System.out.println("Antes de definir usermodel no Autenticar filter");
+            UserAccountDTO usuario = new ObjectMapper()
+                    .readValue(request.getInputStream(), UserAccountDTO.class);
+            System.out.println("DEPOIS de definir usermodel no Autenticar filter, e antes de return");
             return _authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     usuario.getLogin(),
                     usuario.getPassword(),
@@ -45,7 +47,7 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
             ));
 
         } catch (IOException e) {
-            System.out.println("Entrou no catch");
+            System.out.println("Entrou no catch -======================================\n============================================\n=========================================\n======================================================");
             throw new RuntimeException("Falha ao autenticar usuario", e);
         }
 

@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.service.UserDatailServiceImpl;
+import com.example.demo.services.UserDatailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,10 +30,10 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("Entrou no JWTConfig");
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuario/create").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuario/listarTodos").hasAnyRole("")
+                .antMatchers(HttpMethod.POST, "/api/user/create").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAutenticarFilter(authenticationManager()))

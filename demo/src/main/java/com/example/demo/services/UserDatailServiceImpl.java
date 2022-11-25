@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
 import com.example.demo.data.UserDatailData;
-import com.example.demo.model.UserModel;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.models.UserModel;
+import com.example.demo.repositories.IUserRepository;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

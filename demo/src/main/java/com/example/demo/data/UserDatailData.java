@@ -1,6 +1,6 @@
 package com.example.demo.data;
 
-import com.example.demo.model.UserModel;
+import com.example.demo.models.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

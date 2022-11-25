@@ -1,10 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.models;
 
+import com.example.demo.enums.permissionProfileUserEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
-@Entity(name="Usuario")
+@Entity
+@Table(name="tb_user")
 public class UserModel {
 
     @Id
@@ -27,9 +29,9 @@ public class UserModel {
     private String email;
 
     @Column(name="perfilPermissao")
-    private String perfilPermissao;
+    private permissionProfileUserEnum perfilPermissao;
 
-    public UserModel(Integer id, String login, String password, String firstName, String lastName, String email, String perfilPermissao) {
+    public UserModel(Integer id, String login, String password, String firstName, String lastName, String email, permissionProfileUserEnum perfilPermissao) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -66,7 +68,7 @@ public class UserModel {
         return this.email;
     }
 
-    public String getPerfilPermissao() {
+    public permissionProfileUserEnum getPerfilPermissao() {
         return this.perfilPermissao;
     }
 
@@ -95,7 +97,7 @@ public class UserModel {
         this.email = email;
     }
 
-    public void setPerfilPermissao(String perfilPermissao) {
+    public void setPerfilPermissao(permissionProfileUserEnum perfilPermissao) {
         this.perfilPermissao = perfilPermissao;
     }
 
