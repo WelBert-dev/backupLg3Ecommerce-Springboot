@@ -1,6 +1,6 @@
 
 
-
+referência boa: https://github.com/osopromadze/Spring-Boot-Blog-REST-AP
 
 URL_API_BASE: http://localhost:8080/api/usuario
 GET Listar todos: /listarTodos
@@ -130,7 +130,7 @@ GET validar senha: /validarSenha (Parametro URL)
 create database DB_LG3_RestauranteIFSP;
 use DB_LG3_RestauranteIFSP;
 
-create table usuario... que vai dar erro no console.
+create table usuario... que vai dar erro no console. (Obs: modificar a query para que o login seja UNIQUE.)
 
 ----------------------------------------- // JWT --------------------------------------------------------------------------
 ~ Oque é? aonde vive? oque come?
@@ -183,15 +183,22 @@ Então para demonstrar tudo isso na prática iremos realizar essas requisições
 ----------------------------------------- // 2o - Criando o usuário inicial ----------------------------------------------
 Obs: Necessário pois para outras requisições é necessário o token JWT (rotas liberadas: (/login) e (/api/usuario/create)
 
-curl -X POST -H 'Content-Type: application/json' -d '{"id":"1", "login":"jubileu", "password":"jubinaoleu123", "firstName":"JubileuNão", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\
+
+curl -X POST -H 'Content-Type: application/json' -d '{"id":"1","login":"jubileu","password":"jubinaoleu123","firstName":"JubileuNão","lastName":"NaoLeu","email":"jubileu@hotmail.com"}' http://localhost:8080/api/user/create
 
 curl -X POST -H 'Content-Type: application/json' -d '{"id":"2", "login":"jubiNaoLeu", "password":"jubinaoleu", "firstName":"Jubileu", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/usuario/create
 
 - Criado ira retornar no console o Json!
 - Testar uma requisição em outra rota privada, sem o TOKEN!
 
-curl -L http://localhost:8080/api/usuario/listarTodos
+curl -L http://localhost:8080/api/user/getAll
 
+
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -X POST -H 'Content-Type: application/json' -d '{"id":1,"login":"jubileu","password":"jubinaoleu123","firstName":"JubileuNão","lastName":"NaoLeu","email":"jubileu@hotmail.com"}' http://localhost:8080/api/user/create
+
+
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -L http://localhost:8080/api/user/getAll
 ---------------------------------------- // 3o - Realiza login para obter o Token JWT ------------------------------------
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY4MDQwNjI4fQ.VAS2YvCyciWZLvxypfUX14KXLPyORbAQqkA3e9NUAQ1MgitdUCeHUTCMw1k8gPXCMcPyG0xWYqoVf40zVGOFig
 
