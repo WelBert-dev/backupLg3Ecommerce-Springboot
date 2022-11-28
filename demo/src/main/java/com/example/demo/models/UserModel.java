@@ -158,4 +158,12 @@ public class UserModel {
     public String toString() {
         return "UserModel(id=" + this.getId() + ", login=" + this.getLogin() + ", password=" + this.getPassword() + ", firstName=" + this.getFirstName() + ", lastName=" + this.getLastName() + ", email=" + this.getEmail() + ", perfilPermissao=" + this.getPerfilPermissao() + ")";
     }
+
+    public static boolean isValid(UserModel user){
+
+        if (user.getLogin() != null && user.getEmail() != null && user.getFirstName() != null && user.getLastName() != null && user.getPassword() != null) {
+            return true;
+        }
+        return false;
+    }
 }

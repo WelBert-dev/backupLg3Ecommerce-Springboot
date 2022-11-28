@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.UserAccountDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.enums.permissionProfileUserEnum;
 import com.example.demo.models.UserModel;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,7 +24,7 @@ public class UserService {
        List<UserModel> usersEntity = _userRepository.findAll();
        List<UserDTO> usersDTO = new ArrayList<>();
 
-       if (usersEntity.size() > 0 && usersEntity != null) {
+       if (usersEntity.size() > 0 && !usersEntity.isEmpty()) {
            for(int i = 0; i < usersEntity.size(); i++) // Mapper and Parsing Entity <=> DTO
            {
                UserDTO userDTO = new UserDTO(usersEntity.get(i));
@@ -49,40 +49,34 @@ public class UserService {
        return null;
     }
 
-    public UserDTO salvar(UserAccountDTO user) {
+    public UserDTO salvar(UserModel user) {
 
-        if (user != null) {
-            System.out.println(user.getPassword());
-            System.out.println(user.getLogin());
+        if (user != null && UserModel.isValid(user)) {
             user.setPassword(_encoder.encode(user.getPassword())); // override, criptografa
+            user.setPerfilPermissao(permissionProfileUserEnum.PERFIL_REGULAR_USER); // <- regra de negocio
 
-            UserModel userEntity = new UserModel();
-            // userEntity.setId(); <- Serial
-            userEntity.setLogin(user.getLogin());
-            userEntity.setPassword(_encoder.encode(user.getPassword()));
-            userEntity.setFirstName(user.getFirstName());
-            userEntity.setLastName(user.getLastName());
-            userEntity.setEmail(user.getEmail());
-            userEntity.setPerfilPermissao(permissionProfileUserEnum.PERFIL_REGULAR_USER); // <- regra de negócio
+            _userRepository.save(user);
 
-            _userRepository.save(userEntity);
-
-            UserDTO userDTO = new UserDTO(userEntity);
+            UserDTO userDTO = new UserDTO(user);
             return userDTO;
         }
 
         return null;
     }
 
-    public List<UserDTO> atualizar(UserAccountDTO user) {
+    public List<UserDTO> atualizar(UserModel user) {
         user.setPassword(_encoder.encode(user.getPassword())); // override, criptografa
 
-        UserModel userEntityOld = _userRepository.findById(user.getId()).get(); //_userRepository.findByLogin(user.getLogin()).get();
+        if (!UserModel.isValid(user) && !isValidToUpdate(user, user.getId())) {
+            return null;
+        }
 
-        // Esta atualizando, porém se o novo login ja existir?? não pode pois é unique
+        if(_userRepository.existsByLogin(user.getLogin()) && _userRepository.findByLogin(user.getLogin()).get().getId() == user.getId() || !_userRepository.existsByLogin(user.getLogin())) {
 
-        if (userEntityOld != null && _userRepository.findByLogin(user.getLogin()).get() == null) {
+
+            UserModel userEntityOld = _userRepository.findById(user.getId()).get();
             UserModel userEntityNew = new UserModel();
+
             userEntityNew.setId(userEntityOld.getId()); // <- O Id sempre continuará o mesmo!!!
             userEntityNew.setLogin(user.getLogin());
             userEntityNew.setPassword(user.getPassword());
@@ -91,12 +85,14 @@ public class UserService {
             userEntityNew.setEmail(user.getEmail());
             userEntityNew.setPerfilPermissao(userEntityOld.getPerfilPermissao()); // <- regra de negócio
 
+            UserDTO userDTOOld = new UserDTO(userEntityOld); // pois tava passando a msm referencia
             _userRepository.save(userEntityNew);
 
             List<UserDTO> userOldAndNew = new ArrayList<>();
-            userOldAndNew.add(new UserDTO(userEntityOld));
+            userOldAndNew.add(userDTOOld);
             userOldAndNew.add(new UserDTO(userEntityNew));
             return userOldAndNew;
+
         }
 
         return null;
@@ -114,5 +110,13 @@ public class UserService {
         }
 
         return null;
+    }
+
+    public boolean isValidToUpdate(UserModel user, int id) {
+        if (user.getId() != null && _userRepository.existsById(id)) {
+            return true;
+        }
+
+        return false;
     }
 }

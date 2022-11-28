@@ -23,15 +23,6 @@ public class UserDTO {
         perfilPermissao = user.getPerfilPermissao();
         System.out.println(this.perfilPermissao.getNomeRelatorio());
     }
-
-    public UserDTO(UserAccountDTO user) {
-        id = user.getId();
-        login = user.getLogin();
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        email = user.getEmail();
-    }
-
     public Integer getId() {
         return id;
     }

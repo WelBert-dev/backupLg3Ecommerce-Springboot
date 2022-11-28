@@ -1,11 +1,10 @@
 package com.example.demo.security;
 
 import com.example.demo.data.UserDatailData;
-import com.example.demo.dtos.UserAccountDTO;
-import com.example.demo.models.UserModel;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.demo.models.UserModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,8 +36,8 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
             System.out.println("Antes de definir usermodel no Autenticar filter");
-            UserAccountDTO usuario = new ObjectMapper()
-                    .readValue(request.getInputStream(), UserAccountDTO.class);
+            UserModel usuario = new ObjectMapper()
+                    .readValue(request.getInputStream(), UserModel.class);
             System.out.println("DEPOIS de definir usermodel no Autenticar filter, e antes de return");
             return _authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     usuario.getLogin(),
