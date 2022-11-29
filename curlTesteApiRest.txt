@@ -248,4 +248,43 @@ curl -X POST -H 'Content-Type: application/json' -d '{"id":"4", "login":"paparaz
 curl -X POST -H 'Content-Type: application/json' -d '{"id":"5", "login":"jubileu", "password":"jubinaoleu123", "firstName":"Jubileu", "lastName":"NaoLeu", "email":"jubileu@hotmail.com", "perfilPermissao":"2"}' http://localhost:8080/api/usuario/create
 
 
+------------------------------------------ // Motivos para separar a aplicação em camadas/tecnologias: ----------------
+
+- Tomei essa abordagem pois o mercado esta caminhando para isto, e o motivo maior é Desacoplamento de tecnologias!
+
+- Como assim wellisu?
+- Isso mesmo, separamos as tecnologias web (HTML+CSS+Javascript) do core do sistema (Springboot)
+- Vantagens: 
+	- Melhor manutenção pois as tecnologias ficam separadas e trocam mensagens com algum protocolo que ambas conhecem (JSON, XML...).
+	- Desacoplamento, pois utilizando a abordagem tradicional "cuspindo" views forçamos que quem recebe deve conhecer essas tecnologias.
+	- Com isto podemos: Consumir o core do sistema com uma apresentação Mobile, Desktop (Windows forms) dentre outras tecnologias distintas.
+	- Então basta construir o core "cuspindo" algum protocolo "universal" e simples, para consumi-lo por outras tecnologias de uma forma mais simples.
+	- Da mais trabalho, porém a escalabilidade é maior, além de separarmos a mão de obra (pois anteriormente "cuspindo" views o programador tem que ser Fullstack).
+	- Código mais limpo, pois não vai ocorrer essas misturas de códigos distintos.
+	- Com isto temos códigos mais inteligêntes e compreensíveis aos humanos.
+
+
+------------------------------------------ // Conceitos e Abordagens tomadas no Frontend: -----------------
+
+- Devido ao meu PC da xuxa não foi possível integrar o servidor Spring com o servidor React e sentir como é a programação na vida real.
+- Mas não seja por isso, vamos aprender pois é uma delicia rsrs...
+
+- Autenticação e Autorização:
+- Router (React Router Dom) <- Aplicando aqui também o conceito a cima.
+- CRUD Client-Side (LocalStorage)
+- 
+
+------------------------------------------ // Autenticação e Autorização:
+
+- Login "Quem é o indivíduo"?
+- Quais as permissões no site esse indivíduo possuí?
+
+- Autorização são as permissões do usuário autenticado, e com ela temos dois níveis de permissões sendo eles:
+
+- A Nível de componentes, e a Nível de rotas.
+
+
+------------------------------------------ // Router (React Router Dom) <- lib para controle de rotas:
+
+- 
 
