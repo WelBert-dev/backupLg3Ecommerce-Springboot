@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { FaCartArrowDown } from 'react-icons/fa';
 import { FcSearch } from 'react-icons/fc';
+import { MdTrendingUp } from 'react-icons/md';
 
 import './MainNavbar.css';
 
@@ -13,6 +14,10 @@ export default function MainNavbar() {
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cart')) ?? [];
     const setLocalStorage = (dbCart) => localStorage.setItem("db_cart", JSON.stringify(dbCart));
 	
+    const getUserMock_localStorage = () => JSON.parse(localStorage.getItem('db_userMock')) ?? [];
+
+	const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? [];
+
     var flagSigninPage = false;
     if(window.location.href.substring(1).split("/")[3] == 'signin')
     {
@@ -82,7 +87,7 @@ export default function MainNavbar() {
                         ): ""
                     }
                     </i></a>
-                    <a href="/signin">Logar</a>     
+                    {getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage()[0] == true? (<a href="/logoff">Deslogar</a>):(<a href="/signin">Logar</a>)}     
                 </div>     
             </nav>
             <button id="btn-hamburguer" className="nav-btn" onClick={showNavbar}><FaBars /></button>

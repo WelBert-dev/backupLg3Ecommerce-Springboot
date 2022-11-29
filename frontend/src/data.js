@@ -87,4 +87,6 @@ const data = {
     ]
 }
 
+export const mockRegularUserPermissions = ['canSeeBtnLogOff'];
+
 export default data;
