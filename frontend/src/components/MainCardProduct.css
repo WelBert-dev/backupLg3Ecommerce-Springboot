@@ -235,6 +235,7 @@
     z-index: 4;
     cursor: initial;
     margin-top: -2rem;
+    min-height: 100vh;
 }
 
 /* ativação do modal */
