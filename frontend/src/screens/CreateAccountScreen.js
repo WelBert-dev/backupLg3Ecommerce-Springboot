@@ -93,7 +93,7 @@ export default function CreateAccountScreen() {
 				"firstName":firstName, 
 				"lastName":lastName, 
 				"email":email, 
-				"perfilPermissions":1,
+				"perfilPermissions":2,
 			};
 
 			fetchPostData(process.env.URL_API_BASE + process.env.API_ENDPOINT_CREATEACCOUNT, 

@@ -1,12 +1,12 @@
-const getLocalStorage = () => JSON.parse(localStorage.getItem('auth_token_JWT')) ?? [];
-const setLocalStorage = (authTokenJWT) => localStorage.setItem("auth_token_JWT", JSON.stringify(authTokenJWT));
+const getUserMock_localStorage = () => JSON.parse(localStorage.getItem('db_userMock')) ?? [];
 
+const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? false;
 
 export const isAuthenticated = () => {
 // Acessa localstorage e verifica se tem token, 
 // Se não tiver, redireciona usuário para a tela de login.
        
-    if (typeof getLocalStorage() !== 'undefined' && getLocalStorage.length > 0) {
+    if (typeof getUserMock_localStorage() !== 'undefined' && getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage()) {
         // usuário está autenticado
         return true;
     }
@@ -20,7 +20,7 @@ export const isRootUser = () => {
 // Faz uma requisição com ela, para verificar se usuário é root,  
 // se nenhuma dessas condições ser satisfeita, return false e deixa responsabilidades para o chamador 
     
-    if (typeof getLocalStorage() !== 'undefined' && getLocalStorage().length > 0) {
+    if (typeof getUserMock_localStorage() !== 'undefined' && getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage() && getUserMock_localStorage()[0].perfilPermissions == 2) {
         // usuário está autenticado, agora verificar se é rootUser
         // faz fetch na API POST /api/rootUserAuthenticated (Recebe um body JWT)
         // se userRoot == true api retorna 200 OK 

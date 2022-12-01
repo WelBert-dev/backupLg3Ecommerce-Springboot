@@ -1,0 +1,69 @@
+----------------------------------------------- // 1 - Testes de login
+1o - Criar uma conta.
+2o - Logar nela. 
+
+~ Resultado esperado: 
+1o - Botão "Logar" mudar para "Deslogar".
+2o - Redirecionar para a Home.
+
+------------------------- // Teste exploratorio "Login": // aqui quebra
+1o - Após o passo anterior, tentar logar diretamente pela rota.
+localhost:3000/signin 
+
+~ Resultado esperado: 
+1o - Não deve ser possível pois ja estamos logado!
+2o - Deve-se redirecionar para a Home ou tela de aviso. 
+
+------------------------- // Teste Login RootUser:
+localhost:3000/signin 
+1o - Alterar o mock em createAccountScreen.js para perfilPermission 2.
+2o - Limpar o Cache do navegador.
+3o - Criar uma conta novamente (Desta vez ela vai ser setada como rootUser).
+4o - Realiza login nela.
+
+~ Resultado esperado: 
+1o - Botão "Logar" mudar para "Deslogar".
+2o - Botão "Área ADM" surge ao lado do botão "Home".
+
+----------------------------------------------- // 2 - Testes Botão "Carrinho" 
+1o - Tentar acessar sem estar logado.
+
+~ Resultado esperado:
+1o - Usuário é redirecionado para a tela de login.
+
+------------------------ // Teste exploratorio "Carrinho":
+1o - Tentar acessar agora diretamente pela rota.
+localhost:3000/cart
+
+~ Resultado esperado:
+1o - Usuário é redirecionado para a tela de login.
+
+---------------------------------------------- // 3 - Testes Botão "Criar conta"
+1o - Tentar acessar já estando logado.
+localhost:3000/signin/createAccount
+
+~ Resultado esperado:
+1o - Usuário é redirecionado para home.
+
+---------------------------------------------- // 4 - Testes Área root:
+1o - Tentar acessar estando logado em perfilPermission 1 (RegularUser)
+localhost:3000/rootArea
+
+~ Resultado esperado:
+1o - Usuário é redirecionado para home.
+
+------------------------ // Sem usuário (NullUser)
+1o - Tentar acessar sem estar logado.
+localhost:3000/rootArea
+
+~ Resultado esperado:
+1o - Usuário é redirecionado para realizar login.
+
+------------------------ // Com usuário root (RootUser) (Obs: mudar o mock em createAccountScreen.js)
+1o - Tentar acessar logado em perfilPermission 2 (RootUser)
+localhost:3000/rootArea
+
+~ Resultado esperado:
+1o - Usuário é liberado para acesso.
+
+---------------------------------------------- // 5 - Testes Botão "Deslogar":

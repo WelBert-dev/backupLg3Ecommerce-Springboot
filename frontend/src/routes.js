@@ -42,7 +42,7 @@ const MainRoutes = () => (
                 <Route exact 
                         path='/rootArea' 
                         element={<RequireRootUser>
-                                    <h1>Area do Super Usuário ;D</h1>
+                                    <h1 className="superUsuarioArea">Area do Super Usuário ;D</h1>
                                 </RequireRootUser>}>
                 </Route>    
 

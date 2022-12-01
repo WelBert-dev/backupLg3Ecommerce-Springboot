@@ -16,7 +16,7 @@ export default function MainNavbar() {
 	
     const getUserMock_localStorage = () => JSON.parse(localStorage.getItem('db_userMock')) ?? [];
 
-	const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? [];
+	const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? false;
 
     var flagSigninPage = false;
     if(window.location.href.substring(1).split("/")[3] == 'signin')
@@ -57,11 +57,21 @@ export default function MainNavbar() {
         return sum;
     }
 
+    function handleLogoffClick() {
+        localStorage.clear();
+        console.log("limpou"); 
+    }
+
     return (
         <>
             <nav id="navbar-container" ref={navRef} >
                 <button id="nav-close-btn" className="nav-btn nav-close-btn" onClick={showNavbar}><FaTimes /></button>
                 <a href="/">Home</a>
+                {
+                    getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage() == true && getUserMock_localStorage()[0].perfilPermissions == 2 ?(
+                        <a href="/rootArea">Area ADM</a>
+                    ):""
+                }
                 {
                     flagSigninPage ?
                     "" :
@@ -87,7 +97,7 @@ export default function MainNavbar() {
                         ): ""
                     }
                     </i></a>
-                    {getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage()[0] == true? (<a href="/logoff">Deslogar</a>):(<a href="/signin">Logar</a>)}     
+                    {getUserMock_localStorage().length > 0 && getUserSessionMock_localStorage() == true? (<a href="/" onClick={() => handleLogoffClick()}>Deslogar</a>):(<a href="/signin">Logar</a>)}     
                 </div>     
             </nav>
             <button id="btn-hamburguer" className="nav-btn" onClick={showNavbar}><FaBars /></button>

@@ -7,7 +7,7 @@ export default function SigninScreen() {
 	const getUserMock_localStorage = () => JSON.parse(localStorage.getItem('db_userMock')) ?? [];
 	const setUserMock_localStorage = (dbUserMock) => localStorage.setItem("db_userMock", JSON.stringify(dbUserMock));
 
-	const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? [];
+	const getUserSessionMock_localStorage = () => JSON.parse(localStorage.getItem('db_userSessionMock')) ?? false;
 	const setUserSessionMock_localStorage = (dbSessionMock) => localStorage.setItem("db_userSessionMock", JSON.stringify(dbSessionMock));
 
 	const readClient = () => getUserMock_localStorage();
@@ -33,10 +33,7 @@ export default function SigninScreen() {
 	}
 
 	const createSessionMock = (session) => {
-		var dbSession = getUserSessionMock_localStorage();
-		dbSession = [];
-		dbSession.push(session);
-		setUserSessionMock_localStorage(dbSession);
+		setUserSessionMock_localStorage(session);
 	}
 
 
@@ -47,7 +44,7 @@ export default function SigninScreen() {
 
 	const isUserExists = (login, password) => {
 		// verifica se usuário existe e esta ok
-		if (readClient().find(x => x.login === String(login)) && readClient().find(x => x.password === String(password))) {
+		if (readClient().find(x => x.login === String(login) && x.password === String(password))) {
 			return true;
 		}
 
@@ -75,6 +72,10 @@ export default function SigninScreen() {
 		}
 	}
 
+	if (getUserSessionMock_localStorage() && getUserMock_localStorage().lenght > 0) {
+
+	}
+
     return (
          <div className="main-signin--container" style={{background: `#FFFFFF url('/images/anabolizadu.png') no-repeat center center fixed`}}>   
 	      <div id="login">
@@ -82,9 +83,7 @@ export default function SigninScreen() {
 				<h1>Login</h1> 
 				<p> 
 					<label for="login_signin">Login</label>
-				
-					<input id="login_signin" name="login_signin" required="required" type="text" placeholder="ex. PamonhaMilGrau" {value=getUserMock_localStorage().length > 0 ? (getUserMock_localStorage()[getUserMock_localStorage().length - 1].login):('default')} />
-					
+					<input id="login_signin" name="login_signin" required="required" type="text" placeholder="ex. PamonhaMilGrau" />	
 				</p>
 				
 				<p> 
