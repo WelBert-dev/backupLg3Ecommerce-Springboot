@@ -49,7 +49,7 @@ const MainRoutes = () => (
                 <Route exact 
                         path='/cart' 
                         element={<RequireAuth>
-                                    <h1>Você está no carrinho</h1>
+                                    <h1 className="superUsuarioArea">Você está no carrinho</h1>
                                 </RequireAuth>}>
                 </Route>  
             </Route>
