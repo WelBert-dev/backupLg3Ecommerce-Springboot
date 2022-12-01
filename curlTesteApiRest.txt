@@ -132,6 +132,33 @@ use DB_LG3_RestauranteIFSP;
 
 create table usuario... que vai dar erro no console. (Obs: modificar a query para que o login seja UNIQUE.)
 
+- Obs: JPA mapeia as entidades definidas com a anotação e integra automaticamente o banco com o java.
+
+
+
+- Tipos de Exception: Checked e Unchecked (Por que mesmo lançando algumas exeções o programa continua executando?)
+https://github.com/WelBert-dev/SpringBoot-Study/blob/main/aulasDevDojo/aula94a105-exception.txt
+
+- Estrutura Hierarquica básica das classes Exceptions/Throws:
+
+                                              <Checked>(NEM compila)           <Unchecked> (Compila)
+                          [Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                                                        /\                            /\
+                                                         |                             |
+                                                   [IOException]              [NullPointerException]
+                                                   [SQLException]             [NumberFormatException]
+                                                   [MalformadURLexception]    [ClassCastException]
+                                                                              [IndexOutOfBoundsException]
+ 
+ 
+---------------------- // Tipos CHECKED: Exceptions conhecidas pelo java, e antes mesmo de compilar ele ja identifica elas porisso elas são subClasses de
+ExceptionS diretas, essas exceções devem ser OBRIGATÓRIAMENTE tratadas e se não o fizer nem compilar vai.
+
+---------------------- // Tipos UNCHECKED: Exceptions desconhecidas pelo java, porisso são subClasses de "RuntimeException", ou seja vão ser
+identificadas após compilar, em tempo de execução.. Unchecked pois são cenários em que o Java desconhece. porisso NÃO é obrigatório lançar esse tipo de
+Exception.
+
+
 ----------------------------------------- // JWT --------------------------------------------------------------------------
 ~ Oque é? aonde vive? oque come?
 
@@ -199,18 +226,62 @@ curl -L http://localhost:8080/api/user/getAll
 
 
 .\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -L http://localhost:8080/api/user/getAll
+
+--- Caso retorne 415 Unsupported Media Type:
+Baixar postman, nele funciona e.e
+
+- Method POST: http://localhost:8080/api/user/create
+
+body raw json
+
+{
+   "id":1,
+   "login":"jubileu",
+   "password":"jubinaoleu123",
+   "firstName":"JubileuNão",
+   "lastName":"NaoLeu",
+   "email":"jubileu@hotmail.com"
+}
+
+
+- Query para ver resultado no mysql:
+
+select * from tb_user;
+ 
 ---------------------------------------- // 3o - Realiza login para obter o Token JWT ------------------------------------
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU3NTI5fQ.nWxXFhofBHU5_TmbvSuuJWXMolWWxroV_BkKeAmcrcGhAtniYS-PCplGctUyobgM6AU9HnVBJp5ux7_m3zNGkg
 curl -X POST -H 'Content-Type: application/json' -d '{"login":"jubileu", "password":"jubinaoleu123"}' http://localhost:8080/login
 
 - Ira retornar o Token
 
+.\Downloads\curl-7.86.0_2-win64-mingw\bin\curl -X POST -H 'Content-Type: application/json' -d '{"login":"jubileu","password":"jubinaoleu123"}' http://localhost:8080/login
+
+
+--- Caso retorne 415 Unsupported Media Type:
+
+- Method POST: http://localhost:8080/login
+
+{
+   "login":"jubileu",
+   "password":"jubinaoleu123"
+}
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5OTI0Njg0fQ.Edq781neG9XnBnfKMpawEZrz85GMBe7czSixJc-mHTUaZ69n1s2pTWOcrVFmVAfzXWbMf_2NP_Mh6MSoq32vyg
+
 ---------------------------------------- // 4o - Faz as requisições desejadas mandando o Token no header -----------------
 
 curl -L --header 'Authorization: Bearer TOKEN' http://localhost:8080/api/user/getAll
 
-curl -L --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU3NTI5fQ.nWxXFhofBHU5_TmbvSuuJWXMolWWxroV_BkKeAmcrcGhAtniYS-PCplGctUyobgM6AU9HnVBJp5ux7_m3zNGkg' http://localhost:8080/api/user/getAll
+curl -L --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5OTI0Njg0fQ.Edq781neG9XnBnfKMpawEZrz85GMBe7czSixJc-mHTUaZ69n1s2pTWOcrVFmVAfzXWbMf_2NP_Mh6MSoq32vyg' http://localhost:8080/api/user/getAll
 
+
+-- Não tem method POST então é possível pelo terminal, se for no postman:
+
+- Method GET: http://localhost:8080/api/user/getAll
+
+- Headers:
+	key: Authorization
+	value: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5OTI0Njg0fQ.Edq781neG9XnBnfKMpawEZrz85GMBe7czSixJc-mHTUaZ69n1s2pTWOcrVFmVAfzXWbMf_2NP_Mh6MSoq32vyg
 
 ---------------------------------------- // 5o - Atualiza informações de usuário -----------------------------------------
 
@@ -218,17 +289,57 @@ curl -L --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ
 
 curl -X PUT -H 'Content-Type: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU3NTI5fQ.nWxXFhofBHU5_TmbvSuuJWXMolWWxroV_BkKeAmcrcGhAtniYS-PCplGctUyobgM6AU9HnVBJp5ux7_m3zNGkg' -d '{"id":"1", "login":"Pamonha", "password":"Pamonha", "firstName":"Pamonha", "lastName":"Pamonha", "email":"pamonha@hotmail.com"}' http://localhost:8080/api/user/update
 
+----- Postman: (Retorno será o usuário antigo e o novo)
+
+- Method PUT: http://localhost:8080/api/user/update
+
+- Headers:
+	key: Authorization
+	value: Bearer TOKEN_JWT
+
+{
+   "id":"1",
+   "login":"Pamonha",
+   "password":"Pamonha",
+   "firstName":"Pamonha",
+   "lastName":"Pamonha",
+   "email":"pamonha@hotmail.com"
+}
+
 ---> Atualiza todas informações, porém mantendo o login atualizado anterior:
 
 curl -X PUT -H 'Content-Type: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU3NTI5fQ.nWxXFhofBHU5_TmbvSuuJWXMolWWxroV_BkKeAmcrcGhAtniYS-PCplGctUyobgM6AU9HnVBJp5ux7_m3zNGkg' -d '{"id":"1", "login":"Pamonha", "password":"jubileu123", "firstName":"Jusisclaudio", "lastName":"da Silva", "email":"jusisclaudio@hotmail.com"}' http://localhost:8080/api/user/update
+
+----- Postman: (Retorno será o usuário antigo e o novo)
+
+{
+   "id":"1",
+   "login":"Pamonha",
+   "password":"jubileu123",
+   "firstName":"Jusisclaudio",
+   "lastName":"da Silva",
+   "email":"jusisclaudio@hotmail.com"
+}
 
 ---> Atualiza todas informações porém passando Id inexistente:
 
 curl -X PUT -H 'Content-Type: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU3NTI5fQ.nWxXFhofBHU5_TmbvSuuJWXMolWWxroV_BkKeAmcrcGhAtniYS-PCplGctUyobgM6AU9HnVBJp5ux7_m3zNGkg' -d '{"id":"2", "login":"Pamonha", "password":"jubileu123", "firstName":"Jusisclaudio", "lastName":"da Silva", "email":"jusisclaudio@hotmail.com"}' http://localhost:8080/api/user/update
 
+{
+   "id":"2",
+   "login":"Pamonha",
+   "password":"jubileu123",
+   "firstName":"Jusisclaudio",
+   "lastName":"da Silva",
+   "email":"jusisclaudio@hotmail.com"
+}
 ---------------------------------------- // 6o - Deleta um usuário -----------------------------------------
 
-curl -X DELETE -H 'Content-Type: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU4NTQ0fQ.76DHN4jKwo9lwoKw0NWLWdwPds4smnxtvtlnXzC-T-63drZqRnvCpYUlsy-H-9gNCj_yrscmG25617rnB0oZKw' -d '{"id":"1"}' http://localhost:8080/api/user/delete
+curl -X DELETE -H --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU4NTQ0fQ.76DHN4jKwo9lwoKw0NWLWdwPds4smnxtvtlnXzC-T-63drZqRnvCpYUlsy-H-9gNCj_yrscmG25617rnB0oZKw' http://localhost:8080/api/user/delete/1
+
+- Postman: 
+
+- Method DELETE: http://localhost:8080/api/user/delete/1
 
 
 curl -X DELETE -H 'Content-Type: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWJpbGV1IiwiZXhwIjoxNjY5NjU4NDA2fQ.14zEekBR8rwiQOcA5-4DpYQ89Hdp9l4V77oLFNVXPut9woR-40fd2lxVreJqF7nEx9lKR12s-oM9v-CuJ1YCkg' -d '{"id":"1", "login":"Pamonha", "password":"Pamonha", "firstName":"Pamonha", "lastName":"Pamonha", "email":"pamonha@hotmail.com", "perfilPermissao":"1"}' http://localhost:8080/api/user/delete

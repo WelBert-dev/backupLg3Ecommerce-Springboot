@@ -99,11 +99,9 @@ public class UserController {
         return new ResponseEntity<List<UserDTO>>(empty, HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<UserModel> deletar(@RequestBody Integer id) {
-
-        if (id != null) {
-            id = (int) id;
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<UserModel> deletar(@PathVariable(name = "id") int id) {
+        if (id != 0) {
             UserModel user = _userService.deletar(id);
 
             return new ResponseEntity<UserModel>(user, HttpStatus.valueOf(405));
